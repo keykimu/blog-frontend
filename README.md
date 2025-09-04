@@ -1,5 +1,18 @@
-# Vue 3 + TypeScript + Vite
+# ブログ
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+このリポジトリは、私のポートフォリオ用ブログのフロントエンドプロジェクトです。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 技術スタック
+- Vue 3
+- TypeScript
+- Vite
+
+## ページ構成（予定）
+- 記事一覧ページ
+- 記事詳細ページ
+- 自己紹介ページ
+- 連絡先ページ
+
+## 目的
+- 自分の制作物や学習内容を公開できるようにする
+- 将来的に管理者画面も追加予定
