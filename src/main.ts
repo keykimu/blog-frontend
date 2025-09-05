@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+import './assets/styles/global.scss';
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(router)
+  .component('Header', Header)
+  .component('Footer', Footer)
+  .mount('#app');

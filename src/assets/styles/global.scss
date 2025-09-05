@@ -1,0 +1,14 @@
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #333333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ダークモード */
+body.dark {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
