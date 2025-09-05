@@ -2,7 +2,10 @@
   <div class="home">
     <div class="profile">
       <div class="icon-nickname">
-        <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
+        <router-link to="/profile" class="logo">
+          <img :src="profileImage" alt="プロフィール画像" class="profile-img"/>
+        </router-link>
+
         <span class="nickname">{{ nickname }}</span>
       </div>
       <span class="realname">{{ realname }}</span>
