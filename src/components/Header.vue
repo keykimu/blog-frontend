@@ -12,7 +12,7 @@
         <a href="/">トップ</a>
         <a href="/profile">プロフィール</a>
         <a href="/skill">スキル</a>
-        <a href="#works">成果物</a>
+        <a href="/works">成果物</a>
         <a href="#contact">連絡先</a>
       </nav>
 
