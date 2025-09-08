@@ -59,11 +59,11 @@ import { ref } from 'vue';
 import profileImage from '../assets/akagi.png';
 
 const name = ref('木村勇紀');
-const intro = ref('SEになった気でいるエンジニア');
+const intro = ref('駆け出しエンジニア');
 
 const about = ref(
   `東京のIT企業に勤めています。
-  Javaを中心としてバックエンドを開発してきましたが、最近はVue、TypeScriptを使用して開発しています。
+  Javaを中心にバックエンドの開発をしてきましたが、最近はVue、TypeScriptを使用したフロントエンドの開発もしています。
   詳しいスキルや経験はヘッダーのスキルを見てください。
   ポートフォリオ兼、今後制作するであろう成果物をまとめたり技術記事を書くために制作しました。
   `
