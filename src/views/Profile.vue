@@ -1,5 +1,6 @@
 <template>
   <div class="profile-page">
+    <h1>プロフィール</h1>
     <!-- Top部分 -->
     <div class="top">
       <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
@@ -99,6 +100,11 @@ const certifications = ref([
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
   .top {
     display: flex;
