@@ -127,8 +127,7 @@ const certifications = ref([
     }
 
     .intro {
-      font-size: 1.2rem;
-      color: #555;
+      font-size: 1.0rem;
     }
   }
 
