@@ -13,7 +13,7 @@
         <a href="/profile">プロフィール</a>
         <a href="/skill">スキル</a>
         <a href="/works">成果物</a>
-        <a href="#contact">連絡先</a>
+        <a href="/contact">連絡先</a>
       </nav>
 
       <!-- 右側：ダークモード切替 -->
