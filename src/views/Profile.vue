@@ -151,6 +151,7 @@ const certifications = ref([
     display: flex;
     flex-wrap: wrap;       // 画面が狭くなったら縦に折り返す
     justify-content: center; // 横方向中央寄せ
+    white-space: pre-line;
   }
 
   .contents {
