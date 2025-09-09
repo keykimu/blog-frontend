@@ -2,11 +2,16 @@
   <div class="works">
     <h1>成果物一覧</h1>
     <div class="grid">
-      <div class="card" v-for="item in paginatedWorks" :key="item.id">
+      <router-link
+        v-for="item in paginatedWorks"
+        :key="item.id"
+        :to="`/works/${item.id}`"
+        class="card"
+      >
         <img :src="item.image" :alt="item.title" />
         <h2>{{ item.title }}</h2>
         <p>{{ item.date }}</p>
-      </div>
+      </router-link>
     </div>
 
     <!-- ページネーション -->
@@ -20,22 +25,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import NoImage from '../assets/no_image.png';
-
-interface Work {
-  id: number;
-  title: string;
-  date: string;
-  image: string;
-}
-
-// ダミーデータ10件
-const works: Work[] = Array.from({ length: 10 }, (_, i) => ({
-  id: i + 1,
-  title: `成果物 ${i + 1}`,
-  date: `2025-0${(i % 9) + 1}-01`,
-  image: NoImage, // 仮画像
-}));
+import { works } from '../data/works';
 
 const page = ref(1);
 const perPage = 8;
