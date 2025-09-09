@@ -5,6 +5,7 @@ import Skill from '../views/Skill.vue';
 import Work from '../views/Works.vue';
 import WorkDetail from '../views/WorkDetail.vue';
 import Contact from '../views/Contact.vue';
+import NotFound from '../views/NotFound.vue'
 
 const routes = [
   { path: '/',name: 'Home',component: Home,},
@@ -13,6 +14,8 @@ const routes = [
   { path: '/works', name: 'Work', component: Work },
   { path: '/works/:id', component: WorkDetail },
   { path: '/contact', name: 'Contact', component: Contact },
+
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ];
 
 const router = createRouter({
