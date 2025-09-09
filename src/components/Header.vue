@@ -9,11 +9,11 @@
 
       <!-- 中央ナビ -->
       <nav :class="{ open: menuOpen }" class="nav">
-        <router-link to="/">トップ</router-link>
-        <router-link to="/profile">プロフィール</router-link>
-        <router-link to="/skill">スキル</router-link>
-        <router-link to="/works">成果物</router-link>
-        <router-link to="/contact">連絡先</router-link>
+        <router-link to="/" @click="menuOpen = false">トップ</router-link>
+        <router-link to="/profile" @click="menuOpen = false">プロフィール</router-link>
+        <router-link to="/skill" @click="menuOpen = false">スキル</router-link>
+        <router-link to="/works" @click="menuOpen = false">成果物</router-link>
+        <router-link to="/contact" @click="menuOpen = false">連絡先</router-link>
       </nav>
 
       <!-- 右側：ダークモード切替 -->
