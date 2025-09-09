@@ -9,11 +9,11 @@
 
       <!-- 中央ナビ -->
       <nav :class="{ open: menuOpen }" class="nav">
-        <a href="/">トップ</a>
-        <a href="/profile">プロフィール</a>
-        <a href="/skill">スキル</a>
-        <a href="/works">成果物</a>
-        <a href="/contact">連絡先</a>
+        <router-link to="/">トップ</router-link>
+        <router-link to="/profile">プロフィール</router-link>
+        <router-link to="/skill">スキル</router-link>
+        <router-link to="/works">成果物</router-link>
+        <router-link to="/contact">連絡先</router-link>
       </nav>
 
       <!-- 右側：ダークモード切替 -->
@@ -41,7 +41,7 @@ const toggleDark = () => {
 
 // 初期ロードでダークモード
 onMounted(() => {
-  document.body.classList.add("dark");
+    document.body.classList.add("dark");
 });
 </script>
 
