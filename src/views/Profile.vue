@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import profileImage from '../assets/akagi.png';
+import profileImage from '/akagi.png';
 
 const name = ref('木村勇紀');
 const intro = ref('駆け出しエンジニア');

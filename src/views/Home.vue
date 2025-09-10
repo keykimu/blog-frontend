@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import profileImage from '../assets/akagi.png';
+import profileImage from '/akagi.png';
 import { ref } from 'vue';
 
 const nickname = ref("kimu");
