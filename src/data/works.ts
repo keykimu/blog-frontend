@@ -1,4 +1,4 @@
-import no_image from '../assets/no_image.png';
+import no_image from '@/assets/no_image.png';
 
 export const works = [
   { id: 1, title: '成果物1', date: '2025-01-01', description: '説明文1', image: no_image},
