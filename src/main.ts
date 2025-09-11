@@ -5,7 +5,7 @@ import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import './assets/styles/global.scss';
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   // ページタイトルを更新
   if (to.meta.title) {
     document.title = to.meta.title as string;
@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
     descriptionMeta.setAttribute('content', to.meta.description as string);
   }
 
-  next();
+  return true;
 });
 
 createApp(App)
