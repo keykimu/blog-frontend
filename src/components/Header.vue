@@ -91,8 +91,8 @@ onMounted(() => {
       display: none;
       flex-direction: column;
       justify-content: space-between;
-      width: 25px;
-      height: 20px;
+      width: 30px;
+      height: 25px;
       background: none;
       border: none;
       cursor: pointer;
@@ -100,8 +100,9 @@ onMounted(() => {
 
       span {
         display: block;
-        height: 3px;
-        background: red !important;
+        height: 4px;
+        width:100%;
+        background-color: white;
         border-radius: 2px;
         transition: all 0.3s;
       }
