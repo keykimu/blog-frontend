@@ -57,55 +57,54 @@ onMounted(() => {
     align-items: center;
     padding: 10px 20px;
     position: relative;
-  }
 
-  .nav {
-    display: flex;
-    gap: 20px;
-    justify-content: left;
-    flex: 1; /* 真ん中に広げる */
-    
-    
-    a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
+    .nav {
+      display: flex;
+      gap: 20px;
+      justify-content: left;
+      flex: 1; /* 真ん中に広げる */
+      
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
-  }
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-  .dark-toggle {
-    background: none;
-    border: 1px solid white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: white;
-    cursor: pointer;
-    font-size: 1.2rem;
-  }
+      .dark-toggle {
+        background: none;
+        border: 1px solid white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
 
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 25px;
-    height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-
-    span {
-      display: block;
-      height: 3px;
-      background: white;
-      border-radius: 2px;
-      transition: all 0.3s;
+      span {
+        display: block;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
     }
   }
 }
