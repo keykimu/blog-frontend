@@ -86,7 +86,7 @@ onMounted(() => {
         font-size: 1.2rem;
       }
     }
-    
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -101,7 +101,7 @@ onMounted(() => {
       span {
         display: block;
         height: 3px;
-        background: white;
+        background: red !important;
         border-radius: 2px;
         transition: all 0.3s;
       }
