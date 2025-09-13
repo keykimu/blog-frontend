@@ -114,6 +114,6 @@ th, td {
 }
 
 th {
-  background-color: #dddd;
+  background-color: #a7a7a7dd;
 }
 </style>
