@@ -49,7 +49,7 @@ const prevPage = () => {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 40px 20px;
+  padding: 20px;
 
   h1 {
     margin-bottom: 30px;

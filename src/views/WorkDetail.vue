@@ -35,7 +35,7 @@ const renderedContent = computed(() => marked.parse(work.value.description));
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 40px 20px;
+  padding: 20px;
 
   .date {
     color: #777;
