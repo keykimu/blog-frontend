@@ -32,16 +32,16 @@ import { onMounted, ref } from 'vue';
 const menuOpen = ref(false);
 const isDark = ref(true);
 
-const toggleMenu = () => menuOpen.value = !menuOpen.value;
+const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 
 const toggleDark = () => {
   isDark.value = !isDark.value;
-  document.body.classList.toggle("dark", isDark.value);
+  document.body.classList.toggle('dark', isDark.value);
 };
 
 // 初期ロードでダークモード
 onMounted(() => {
-    document.body.classList.add("dark");
+  document.body.classList.add('dark');
 });
 </script>
 
@@ -63,7 +63,7 @@ onMounted(() => {
       gap: 20px;
       justify-content: left;
       flex: 1; /* 真ん中に広げる */
-      
+
       a {
         color: white;
         text-decoration: none;
@@ -101,7 +101,7 @@ onMounted(() => {
       span {
         display: block;
         height: 4px;
-        width:100%;
+        width: 100%;
         background-color: white;
         border-radius: 2px;
         transition: all 0.3s;

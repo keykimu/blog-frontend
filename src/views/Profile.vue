@@ -12,7 +12,9 @@
     <section class="about">
       <h2>自己紹介</h2>
       <ul>
-      {{ about }}
+        {{
+          about
+        }}
       </ul>
     </section>
     <div class="contents">
@@ -28,7 +30,7 @@
         <h2>経歴</h2>
         <ul>
           <li v-for="item in career" :key="item.year">
-            <strong>{{ item.year }}</strong>  {{ item.detail }}
+            <strong>{{ item.year }}</strong> {{ item.detail }}
           </li>
         </ul>
       </section>
@@ -37,7 +39,7 @@
         <h2>イベント</h2>
         <ul>
           <li v-for="eventInfo in event" :key="eventInfo.year + eventInfo.name">
-            <strong>{{ eventInfo.year }}</strong>  {{ eventInfo.name }}
+            <strong>{{ eventInfo.year }}</strong> {{ eventInfo.name }}
           </li>
         </ul>
       </section>
@@ -47,7 +49,7 @@
         <h2>資格</h2>
         <ul>
           <li v-for="cert in certifications" :key="cert.year + cert.name">
-            <strong>{{ cert.year }}</strong>  {{ cert.name }}
+            <strong>{{ cert.year }}</strong> {{ cert.name }}
           </li>
         </ul>
       </section>
@@ -67,14 +69,14 @@ const about = ref(
   Javaを中心にバックエンドの開発をしてきましたが、最近はVue、TypeScriptを使用したフロントエンドの開発もしています。
   詳しいスキルや経験はヘッダーのスキルを見てください。
   ポートフォリオ兼、今後制作するであろう成果物をまとめるために制作しました。
-  `
+  `,
 );
 
 const hobbies = ref([
-  'アニメ・ゲーム（Key）', 
+  'アニメ・ゲーム（Key）',
   'ライブ参戦（水樹奈々）',
   'ボードゲーム（麻雀・将棋・花札）',
-  'お酒（特に日本酒）'
+  'お酒（特に日本酒）',
 ]);
 const career = ref([
   { year: '2018', detail: '商業高校　卒業' },
@@ -82,9 +84,7 @@ const career = ref([
   { year: '2022', detail: '株式会社 アドバンスト・ソフト　入社' },
 ]);
 
-const event = ref([
-  { year: '', name: '' },
-]);
+const event = ref([{ year: '', name: '' }]);
 
 const certifications = ref([
   { year: '2017', name: '経済産業省　ITパスポート試験' },
@@ -117,7 +117,7 @@ const certifications = ref([
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      object-position: center 10%; 
+      object-position: center 10%;
       margin-bottom: 10px;
     }
 
@@ -127,7 +127,7 @@ const certifications = ref([
     }
 
     .intro {
-      font-size: 1.0rem;
+      font-size: 1rem;
     }
   }
 
@@ -147,36 +147,36 @@ const certifications = ref([
     }
   }
 
-  .about{
-    flex: 1 1 600px;       // 最小幅300px、余白があれば伸縮
-    max-width: 800px;      // 最大幅を設定
-    background: hsla(0, 0%, 100%, 0.089);   // 任意：背景色
+  .about {
+    flex: 1 1 600px; // 最小幅300px、余白があれば伸縮
+    max-width: 800px; // 最大幅を設定
+    background: hsla(0, 0%, 100%, 0.089); // 任意：背景色
     padding: 10px;
     border-radius: 10px;
     display: flex;
-    flex-wrap: wrap;       // 画面が狭くなったら縦に折り返す
+    flex-wrap: wrap; // 画面が狭くなったら縦に折り返す
     justify-content: center; // 横方向中央寄せ
     white-space: pre-line;
   }
 
   .contents {
     display: flex;
-    flex-wrap: wrap;       // 画面が狭くなったら縦に折り返す
+    flex-wrap: wrap; // 画面が狭くなったら縦に折り返す
     justify-content: center; // 横方向中央寄せ
-    gap: 40px;             // セクション間の余白
+    gap: 40px; // セクション間の余白
     padding: 20px;
   }
 
   .contents section {
-    flex: 1 1 300px;       // 最小幅300px、余白があれば伸縮
-    max-width: 400px;      // 最大幅を設定
-    background: hsla(0, 0%, 100%, 0.089);   // 任意：背景色
+    flex: 1 1 300px; // 最小幅300px、余白があれば伸縮
+    max-width: 400px; // 最大幅を設定
+    background: hsla(0, 0%, 100%, 0.089); // 任意：背景色
     padding: 20px;
     border-radius: 10px;
   }
 
   .contents h2 {
-    text-align: center;    // 見出し中央寄せ
+    text-align: center; // 見出し中央寄せ
   }
 
   .contents ul {

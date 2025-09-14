@@ -19,12 +19,12 @@ const route = useRoute();
 const id = route.params.id as string;
 
 const work = ref(
-  works.find(w => w.id.toString() === id) || {
+  works.find((w) => w.id.toString() === id) || {
     title: 'Not Found',
     date: '',
     description: '',
-    image: ''
-  }
+    image: '',
+  },
 );
 
 const renderedContent = computed(() => marked.parse(work.value.description));
@@ -49,7 +49,7 @@ const renderedContent = computed(() => marked.parse(work.value.description));
     img {
       max-width: 100%;
       max-height: 200px; // 最大高さを指定
-      height: auto;      // 縦横比を維持
+      height: auto; // 縦横比を維持
       border-radius: 10px;
       object-fit: cover; // 画像が枠に収まるように調整
     }
@@ -59,7 +59,9 @@ const renderedContent = computed(() => marked.parse(work.value.description));
     line-height: 1.6;
     font-size: 1rem;
 
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       margin-top: 20px;
     }
 
@@ -90,17 +92,17 @@ const renderedContent = computed(() => marked.parse(work.value.description));
   }
 
   .images {
-    flex-wrap: wrap;       // 複数画像を折り返す
-    gap: 20px;             // 画像間の隙間
+    flex-wrap: wrap; // 複数画像を折り返す
+    gap: 20px; // 画像間の隙間
     margin-bottom: 20px;
 
     img {
-      flex: 1 1 300px;     // 最小幅300px、余白に応じて伸縮
+      flex: 1 1 300px; // 最小幅300px、余白に応じて伸縮
       max-width: 400px;
-      max-height: 300px;   // 縦に大きくなりすぎないよう制限
+      max-height: 300px; // 縦に大きくなりすぎないよう制限
       height: auto;
       border-radius: 10px;
-      object-fit: cover;   // 枠に収まるよう調整
+      object-fit: cover; // 枠に収まるよう調整
     }
   }
 
@@ -108,7 +110,9 @@ const renderedContent = computed(() => marked.parse(work.value.description));
     line-height: 1.6;
     font-size: 1rem;
 
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       margin-top: 20px;
     }
 
@@ -134,7 +138,7 @@ const renderedContent = computed(() => marked.parse(work.value.description));
   .work-detail {
     .images {
       img {
-        flex: 1 1 100%;  // 幅100%にして縦に並べる
+        flex: 1 1 100%; // 幅100%にして縦に並べる
         max-height: 250px;
       }
     }

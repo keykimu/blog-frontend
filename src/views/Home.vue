@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="icon-nickname">
         <router-link to="/profile" class="logo">
-          <img :src="profileImage" alt="プロフィール画像" class="profile-img"/>
+          <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
         </router-link>
 
         <span class="nickname">{{ nickname }}</span>
@@ -17,8 +17,8 @@
 import profileImage from '/akagi.png';
 import { ref } from 'vue';
 
-const nickname = ref("kimu");
-const realname = ref("Yuki Kimura");
+const nickname = ref('kimu');
+const realname = ref('Yuki Kimura');
 </script>
 
 <style lang="scss" scoped>
@@ -26,7 +26,7 @@ const realname = ref("Yuki Kimura");
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 180px); 
+  min-height: calc(100vh - 180px);
 }
 
 .profile {
@@ -46,7 +46,7 @@ const realname = ref("Yuki Kimura");
   height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 10%; 
+  object-position: center 10%;
 }
 
 .nickname {
@@ -55,7 +55,7 @@ const realname = ref("Yuki Kimura");
 }
 
 .realname {
-  font-size: 3.0rem;
+  font-size: 3rem;
   color: #555;
   font-weight: bold;
 }

@@ -20,8 +20,4 @@ router.beforeEach((to) => {
   return true;
 });
 
-createApp(App)
-  .use(router)
-  .component('Header', Header)
-  .component('Footer', Footer)
-  .mount('#app');
+createApp(App).use(router).component('Header', Header).component('Footer', Footer).mount('#app');
