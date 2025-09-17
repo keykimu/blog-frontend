@@ -55,7 +55,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, __from, next) => {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   if (to.path.startsWith('/admin') && to.path !== '/admin' && !isLoggedIn) {
