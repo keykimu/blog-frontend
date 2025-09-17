@@ -7,49 +7,62 @@ import WorkDetail from '../views/WorkDetail.vue';
 import Contact from '../views/Contact.vue';
 import NotFound from '../views/NotFound.vue';
 
+import Login from '../views/admin/Login.vue';
+import AdminTop from '../views/admin/Top.vue';
+import AdminWorks from '../views/admin/WorkList.vue';
+import AdminWorkDetail from '../views/admin/WorkDetail.vue';
+
+import PublicLayout from '../layouts/PublicLayout.vue';
+import AdminLayout from '../layouts/AdminLayout.vue';
 const routes = [
   {
     path: '/',
-    component: Home,
-    meta: { title: 'トップ - kimuのポートフォリオ', description: 'トップページです' },
+    component: () => PublicLayout,
+    children: [
+      { path: '', name: 'Home', component: () => Home },
+      { path: 'profile', name: 'Profile', component: Profile },
+      { path: 'skill', name: 'Skill', component: Skill },
+      { path: 'works', name: 'Works', component: Works },
+      { path: 'works/:id', name: 'WorkDetail', component: WorkDetail },
+      { path: 'contact', name: 'Contact', component: Contact },
+      { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    ],
   },
   {
-    path: '/profile',
-    component: Profile,
-    meta: { title: 'プロフィール - kimu', description: 'プロフィールページです' },
+    path: '/admin',
+    name: 'AdminLogin',
+    component: Login,
   },
   {
-    path: '/skill',
-    component: Skill,
-    meta: { title: 'スキル - kimu', description: 'スキルページです' },
-  },
-  {
-    path: '/works',
-    component: Works,
-    meta: { title: '成果物一覧 - kimu', description: '成果物一覧ページです' },
-  },
-  {
-    path: '/works/:id',
-    component: WorkDetail,
-    meta: { title: '成果物 - kimu', description: '成果物ページです' },
-  },
-  {
-    path: '/contact',
-    component: Contact,
-    meta: { title: '連絡先 - kimu', description: '連絡先ページです' },
-  },
+    path: '/admin',
+    component: AdminLayout,
+    children: [
+      { path: 'top', name: 'AdminTop', component: AdminTop },
+      { path: 'works', name: 'AdminWorks', component: AdminWorks },
+      { path: 'works/:id', name: 'AdminWorkDetail', component: AdminWorkDetail },
 
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: NotFound,
-    meta: { title: 'NotFound - kimu', description: '存在しないページです' },
+      {
+        path: ':pathMatch(.*)*',
+        name: 'AdminNotFound',
+        component: () => import('../views/admin/AdminNotFound.vue'),
+      },
+    ],
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+  if (to.path.startsWith('/admin') && to.path !== '/admin' && !isLoggedIn) {
+    next('/admin');
+  } else {
+    next();
+  }
 });
 
 export default router;
