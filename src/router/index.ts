@@ -12,6 +12,9 @@ import AdminTop from '../views/admin/Top.vue';
 import AdminWorks from '../views/admin/WorkList.vue';
 import AdminWorkDetail from '../views/admin/WorkDetail.vue';
 import AdminNotFound from '../views/admin/AdminNotFound.vue';
+import AdminWorkEdit from '../views/admin/WorkEdit.vue';
+import AdminSkill from '../views/admin/Skill.vue';
+import AdminProfile from '../views/admin/Profile.vue';
 
 import PublicLayout from '../layouts/PublicLayout.vue';
 import AdminLayout from '../layouts/AdminLayout.vue';
@@ -42,6 +45,9 @@ const routes = [
       { path: 'top', name: 'AdminTop', component: AdminTop },
       { path: 'works', name: 'AdminWorks', component: AdminWorks },
       { path: 'works/:id', name: 'AdminWorkDetail', component: AdminWorkDetail },
+      { path: 'works/:id/edit', name: 'AdminWorkEdit', component: AdminWorkEdit },
+      { path: 'skill', name: 'AdminSkill', component: AdminSkill },
+      { path: 'profile', name: 'AdminProfile', component: AdminProfile },
 
       { path: ':pathMatch(.*)*', name: 'AdminNotFound', component: AdminNotFound },
     ],
