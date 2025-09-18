@@ -26,6 +26,14 @@
           <label>自己紹介</label>
           <textarea v-model="profile.bio"></textarea>
         </div>
+        <div>
+          <label>メール</label>
+          <textarea v-model="profile.mail"></textarea>
+        </div>
+        <div>
+          <label>github</label>
+          <textarea v-model="profile.github"></textarea>
+        </div>
         <button type="submit">保存</button>
       </form>
     </section>
@@ -98,6 +106,8 @@ const profile = ref({
   nameEn: 'Taro Yamada',
   intro: 'フルスタックエンジニア',
   bio: 'Vue / TypeScript / Spring Boot を中心に開発しています',
+  mail: 'keykimu1999@gmail.com',
+  github: 'https://github.com/keykimu',
 });
 
 // CRUD 部分
