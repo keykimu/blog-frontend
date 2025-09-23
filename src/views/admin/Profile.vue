@@ -177,7 +177,7 @@ function saveAll() {
     gap: 1rem;
 
     label {
-      width: 6em;  /* ← 最大ラベルに合わせて幅固定（例: 名前（英語）） */
+      width: 6em; /* ← 最大ラベルに合わせて幅固定（例: 名前（英語）） */
       text-align: left;
       font-weight: bold;
     }
@@ -197,7 +197,7 @@ function saveAll() {
   }
 }
 
-.update-basic{
+.update-basic {
   margin-top: 30px;
 }
 

@@ -128,7 +128,7 @@ function saveAll() {
 </script>
 
 <style scoped>
-.skill{
+.skill {
   padding: 2rem;
   .table {
     margin-bottom: 8px;

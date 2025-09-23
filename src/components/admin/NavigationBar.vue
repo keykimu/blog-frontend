@@ -27,7 +27,7 @@ const closeMenu = () => (menuOpen.value = false);
 
 const logout = () => {
   localStorage.removeItem('adminToken');
-  router.push('/admin'); 
+  router.push('/admin');
   closeMenu();
 };
 </script>
@@ -108,7 +108,7 @@ const logout = () => {
     }
 
     .logout-btn {
-      margin-top:100px;
+      margin-top: 100px;
     }
   }
 

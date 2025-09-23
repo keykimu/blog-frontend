@@ -5,9 +5,9 @@
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .admin-not-found {
-  padding:  2rem;
+  padding: 2rem;
 
   @media (max-width: 768px) {
     padding: 0rem;

@@ -19,7 +19,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .top {
   padding: 2rem;
-  
+
   @media (max-width: 768px) {
     padding: 0rem;
     padding-top: 3rem;

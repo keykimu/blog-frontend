@@ -48,8 +48,8 @@ function save() {
 </script>
 
 <style lang="scss" scoped>
-.work-edit{
-  padding:2rem;
+.work-edit {
+  padding: 2rem;
 
   @media (max-width: 768px) {
     padding: 0rem;

@@ -1,7 +1,7 @@
 <template>
   <NavigationBar />
   <div class="new-work">
-    <h2>{{ isEdit ? '編集' : '成果物作成' }} </h2>
+    <h2>{{ isEdit ? '編集' : '成果物作成' }}</h2>
     <form @submit.prevent="save">
       <div>
         <label>タイトル</label>
@@ -69,7 +69,7 @@ const save = async () => {
 
 <style scoped>
 .new-work {
-  padding:  2rem;
+  padding: 2rem;
 
   @media (max-width: 768px) {
     padding: 0rem;
