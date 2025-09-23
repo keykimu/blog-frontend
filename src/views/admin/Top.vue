@@ -1,7 +1,6 @@
 <template>
-  <NavigationBar />
   <div class="top">
-    <h1>管理画面トップ</h1>
+    <h2>管理画面トップ</h2>
     <p>成果物件数: {{ works.length }}</p>
   </div>
 </template>
@@ -17,8 +16,15 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .top {
   padding: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0rem;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 </style>

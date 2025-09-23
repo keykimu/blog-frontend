@@ -36,5 +36,12 @@ onMounted(fetchWorks);
 <style scoped>
 .work-list {
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 </style>

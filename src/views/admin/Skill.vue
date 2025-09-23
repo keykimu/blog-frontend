@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="skill">
     <h2>スキル管理</h2>
 
     <!-- 言語 -->
@@ -128,20 +128,30 @@ function saveAll() {
 </script>
 
 <style scoped>
-table {
-  margin-bottom: 8px;
-  width: 100%;
-  border-collapse: collapse;
-}
-th,
-td {
-  padding: 4px 8px;
-  text-align: left;
-}
-input {
-  width: 100%;
-}
-section {
-  margin-bottom: 20px;
+.skill{
+  padding: 2rem;
+  .table {
+    margin-bottom: 8px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 4px 8px;
+    text-align: left;
+  }
+  input {
+    width: 100%;
+  }
+  section {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 </style>

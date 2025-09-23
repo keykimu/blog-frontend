@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="work-edit">
     <h2>成果物編集</h2>
     <form @submit.prevent="save">
       <div>
@@ -46,3 +46,16 @@ function save() {
   alert('保存処理（モック）: ' + JSON.stringify(work));
 }
 </script>
+
+<style lang="scss" scoped>
+.work-edit{
+  padding:2rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+</style>
