@@ -10,7 +10,7 @@ import NotFound from '../views/NotFound.vue';
 import Login from '../views/admin/Login.vue';
 import AdminTop from '../views/admin/Top.vue';
 import AdminWorks from '../views/admin/WorkList.vue';
-import AdminWorkDetail from '../views/admin/WorkDetail.vue';
+import AdminNewWork from '../views/admin/NewWork.vue';
 import AdminNotFound from '../views/admin/AdminNotFound.vue';
 import AdminWorkEdit from '../views/admin/WorkEdit.vue';
 import AdminSkill from '../views/admin/Skill.vue';
@@ -44,7 +44,7 @@ const routes = [
     children: [
       { path: 'top', name: 'AdminTop', component: AdminTop },
       { path: 'works', name: 'AdminWorks', component: AdminWorks },
-      { path: 'works/:id', name: 'AdminWorkDetail', component: AdminWorkDetail },
+      { path: 'works/new', name: 'AdminNewWork', component: AdminNewWork },
       { path: 'works/:id/edit', name: 'AdminWorkEdit', component: AdminWorkEdit },
       { path: 'skill', name: 'AdminSkill', component: AdminSkill },
       { path: 'profile', name: 'AdminProfile', component: AdminProfile },

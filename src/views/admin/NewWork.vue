@@ -1,7 +1,7 @@
 <template>
   <NavigationBar />
-  <div class="work-detail">
-    <h2>{{ isEdit ? '編集' : '新規作成' }} </h2>
+  <div class="new-work">
+    <h2>{{ isEdit ? '編集' : '成果物作成' }} </h2>
     <form @submit.prevent="save">
       <div>
         <label>タイトル</label>
@@ -68,8 +68,15 @@ const save = async () => {
 </script>
 
 <style scoped>
-.work-detail {
-  padding: 2rem;
+.new-work {
+  padding:  2rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 form div {
   margin-bottom: 1rem;
