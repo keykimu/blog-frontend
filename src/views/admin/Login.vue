@@ -17,14 +17,37 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import api from '../../api/axiosInstance';
 
 const router = useRouter();
+const username = ref('');
+const password = ref('');
+const errorMessage = ref('');
 
-function login() {
-  // 仮ログイン：フラグを保存して遷移
-  localStorage.setItem('isLoggedIn', 'true');
-  router.push('/admin/top');
+async function login() {
+  errorMessage.value = '';
+  try {
+    const response = await api.post('/api/auth/login', {
+      username: username.value,
+      password: password.value,
+    },{
+      headers: { 'Content-Type': 'application/json' }
+    });
+    // JWT を localStorage に保存
+    localStorage.setItem('jwt', response.data.token);
+
+    // トップページに遷移
+    router.push('/admin/top');
+  } catch (error: any) {
+    // エラーを表示
+    if (error.response && error.response.data && error.response.data.error) {
+      errorMessage.value = error.response.data.error;
+    } else {
+      errorMessage.value = 'ログインに失敗しました';
+    }
+  }
 }
 </script>
 
