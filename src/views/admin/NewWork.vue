@@ -3,21 +3,21 @@
   <div class="new-work">
     <h2>{{ isEdit ? '編集' : '成果物作成' }}</h2>
     <form @submit.prevent="save">
-      <div>
-        <label>タイトル</label>
-        <input v-model="work.title" required />
+      <div class="form-row">
+        <label for="title">タイトル</label>
+        <input id="title" v-model="work.title" required />
       </div>
-      <div>
-        <label>説明</label>
-        <textarea v-model="work.description" required></textarea>
+      <div class="form-row">
+        <label for="description">説明</label>
+        <textarea id="description" v-model="work.description" required></textarea>
       </div>
-      <div>
-        <label>画像URL</label>
-        <input v-model="work.imageUrl" />
+      <div class="form-row">
+        <label for="imageUrl">画像URL</label>
+        <input id="imageUrl" v-model="work.imageUrl" />
       </div>
-      <div>
-        <label>技術スタック（カンマ区切り）</label>
-        <input v-model="techStackStr" />
+      <div class="form-row">
+        <label for="techStack">技術スタック（カンマ区切り）</label>
+        <input id="techStack" v-model="techStackStr" />
       </div>
       <button type="submit">保存</button>
     </form>
@@ -78,7 +78,50 @@ const save = async () => {
     padding-bottom: 2rem;
   }
 }
-form div {
-  margin-bottom: 1rem;
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 各フォーム行の間隔 */
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* ラベルと入力欄の間のスペース */
+
+}
+
+label {
+  width: 150px; /* ラベル幅を固定して列を揃える */
+  font-weight: 500;
+}
+
+input,
+textarea {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  min-height: 120px; /* 説明欄を大きく */
+  min-width: 170px;
+  resize: vertical;
+}
+
+button {
+  align-self: flex-start; /* ボタンを左揃え */
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }
 </style>
