@@ -106,13 +106,13 @@ textarea {
 }
 
 textarea {
-  min-height: 120px; /* 説明欄を大きく */
+  min-height: 120px;
   min-width: 170px;
   resize: vertical;
 }
 
 button {
-  align-self: flex-start; /* ボタンを左揃え */
+  align-self: center;
   padding: 0.5rem 1rem;
   background-color: #4caf50;
   color: white;
