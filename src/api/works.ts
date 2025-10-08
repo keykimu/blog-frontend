@@ -9,6 +9,11 @@ export interface Work {
   updatedAt: string;
 }
 
+export interface WorkResponse {
+  data: Work[] | null;
+  error: string | null;
+}
+
 let works: Work[] = [
   {
     id: 1,
@@ -32,10 +37,19 @@ let works: Work[] = [
   },
 ];
 
-export const getWorks = (): Promise<Work[]> => {
-  return new Promise((resolve) => setTimeout(() => resolve(works), 300));
-};
+import api from "./axiosInstance"
 
+export const getWorks = async (): Promise<WorkResponse> => {
+  try {
+    const response = await api.get('/api/works');
+    return { data: response.data, error: null };
+  } catch (err: any) {
+    if(err.response){
+      return { data: null, error: err.response?.data?.error };
+    }
+      return { data: null, error: '通信に失敗しました' };
+  }
+};
 export const getWorkById = (id: number): Promise<Work | undefined> => {
   return new Promise((resolve) => setTimeout(() => resolve(works.find((w) => w.id === id)), 300));
 };

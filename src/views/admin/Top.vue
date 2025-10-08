@@ -2,17 +2,23 @@
   <div class="top">
     <h2>管理画面トップ</h2>
     <p>成果物件数: {{ works.length }}</p>
+    {{ errorMessage }}
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getWorks, type Work } from '../../api/works';
+import { getWorks, type Work, type WorkResponse } from '../../api/works';
 
 const works = ref<Work[]>([]);
-
+const errorMessage = ref<string|null>();
 onMounted(async () => {
-  works.value = await getWorks();
+  const response: WorkResponse = await getWorks();
+  if(response.data){
+    works.value = response.data;
+  }else{
+    errorMessage.value = response.error;
+  }
 });
 </script>
 
