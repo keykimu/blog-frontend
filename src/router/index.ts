@@ -60,9 +60,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, __from, next) => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const jwt = localStorage.getItem('jwt');
 
-  if (to.path.startsWith('/admin') && to.path !== '/admin' && !isLoggedIn) {
+  if (to.path.startsWith('/admin') && to.path !== '/admin' && !jwt) {
     next('/admin');
   } else {
     next();

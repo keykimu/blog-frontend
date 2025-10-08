@@ -26,7 +26,8 @@ const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 const closeMenu = () => (menuOpen.value = false);
 
 const logout = () => {
-  localStorage.removeItem('adminToken');
+  localStorage.removeItem('jwt');
+  sessionStorage.clear();
   router.push('/admin');
   closeMenu();
 };
