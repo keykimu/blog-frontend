@@ -2,7 +2,9 @@
   <div class="top">
     <h2>管理画面トップ</h2>
     <p>成果物件数: {{ works.length }}</p>
-    {{ errorMessage }}
+    <div class="errorMessage">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 

@@ -3,6 +3,10 @@
   <div class="work-list">
     <h2>成果物一覧</h2>
     <router-link to="/admin/works/new">新規作成</router-link>
+    <div class="errorMessage">
+      {{ errorMessage }}
+    </div>
+
 
     <table class="work-table">
       <tbody>
@@ -22,12 +26,18 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getWorks, deleteWork, type Work } from '../../api/works';
+import { getWorks, deleteWork, type Work, type WorkResponse } from '../../api/works';
 
 const works = ref<Work[]>([]);
+const errorMessage = ref<string|null>();
 
 const fetchWorks = async () => {
-  works.value = await getWorks();
+  const response: WorkResponse = await getWorks();
+  if(response.data){
+    works.value = response.data;
+  }else{
+    errorMessage.value = response.error;
+  }
 };
 
 const remove = async (id: number) => {
