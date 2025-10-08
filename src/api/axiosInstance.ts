@@ -9,7 +9,20 @@ const instance = axios.create({
 // リクエスト前に JWT を自動付与
 instance.interceptors.request.use((config) => {
     const token = localStorage.getItem('jwt');
-    const excludeUrls = ['/api/auth/login', '/api/auth/check'];
+    const excludeUrls = [
+      '/api/auth/login',
+      '/api/auth/check',
+      '/api/languages',
+      '/api/other-skills',
+      '/api/profile',
+      '/api/frameworks',
+      '/api/hobby',
+      '/api/works',
+      '/api/works/:id',
+      '/api/certificates',
+      '/api/events',
+      '/api/careers',
+    ];
 
     if (token && !excludeUrls.some(url => config.url?.includes(url))) {
       config.headers.Authorization = `Bearer ${token}`;
