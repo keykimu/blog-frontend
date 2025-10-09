@@ -9,19 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { getWorks, type Work, type WorkResponse } from '../../api/works';
+import {  onMounted } from 'vue';
+import { useWorks } from '../../composables/admin/works/useWorks';
 
-const works = ref<Work[]>([]);
-const errorMessage = ref<string|null>();
-onMounted(async () => {
-  const response: WorkResponse = await getWorks();
-  if(response.data){
-    works.value = response.data;
-  }else{
-    errorMessage.value = response.error;
-  }
-});
+const { works, errorMessage, fetchWorks } = useWorks();
+onMounted(fetchWorks);
 </script>
 
 <style lang="scss" scoped>

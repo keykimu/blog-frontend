@@ -7,7 +7,6 @@
       {{ errorMessage }}
     </div>
 
-
     <table class="work-table">
       <tbody>
         <tr v-for="work in works" :key="work.id">
@@ -25,20 +24,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { getWorks, deleteWork, type Work, type WorkResponse } from '../../api/works';
+import { onMounted } from 'vue';
+import { deleteWork } from '../../api/works';
+import { useWorks } from '../../composables/admin/works/useWorks';
 
-const works = ref<Work[]>([]);
-const errorMessage = ref<string|null>();
-
-const fetchWorks = async () => {
-  const response: WorkResponse = await getWorks();
-  if(response.data){
-    works.value = response.data;
-  }else{
-    errorMessage.value = response.error;
-  }
-};
+const { works, errorMessage, fetchWorks } = useWorks();
 
 const remove = async (id: number) => {
   if (confirm('削除してもよいですか？')) {

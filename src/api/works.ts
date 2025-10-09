@@ -8,22 +8,6 @@ export interface Work {
   updatedAt: string;
 }
 
-export interface WorkResponse {
-  data: Work | null;
-  error: string | null;
-}
-
-export interface WorkCreateRequest {
-  title: string;
-  description: string;
-  url: string;
-  techStack: string;
-}
-
-export interface WorkCreateResponse {
-  data: Work | null;
-  error: string | null;
-}
 
 let works: Work[] = [
   {
@@ -46,38 +30,40 @@ let works: Work[] = [
   },
 ];
 
+import type { WorkCreateRequest } from "../composables/admin/works/new/types";
 import api from "./axiosInstance"
 
-export const getWorks = async (): Promise<WorkResponse> => {
+export const getWorksAPI = async (): Promise<Work[]> => {
   try {
-    const response = await api.get('/api/works');
-    return { data: response.data, error: null };
-  } catch (err: any) {
-    if(err.response){
-      return { data: null, error: err.response?.data?.error };
+    const response = await api.get<Work[]>('/api/works');
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.data?.error) {
+      throw new Error(error.response.data.error);
     }
-    return { data: null, error: '通信に失敗しました' };
+    throw new Error('通信に失敗しました');
   }
 };
+
 export const getWorkById = (id: number): Promise<Work | undefined> => {
   return new Promise((resolve) => setTimeout(() => resolve(works.find((w) => w.id === id)), 300));
 };
 
-export const createWork = async (work: Omit<Work, 'id' | 'createdAt' | 'updatedAt'>) => {
+export const createWorkAPI = async (createRequest: WorkCreateRequest) => {
   try {
     const request: WorkCreateRequest = {
-      title: work.title,
-      description: work.description,
-      url: work.url,
-      techStack: work.techStack,
+      title: createRequest.title,
+      description: createRequest.description,
+      url: createRequest.url,
+      techStack: createRequest.techStack,
     };
     const response = await api.post('/api/works', request);
-    return { data: response.data, error: null };
+    return response.data;
   } catch (error: any) {
-    if(error.response){
-      return { data: null, error: error.response?.data?.error };
+    if (error.response?.data?.error) {
+      throw new Error(error.response.data.error);
     }
-    return { data: null, error: '通信に失敗しました' };
+    throw new Error('通信に失敗しました');
   }
 };
 

@@ -28,38 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { getWorkById, createWork, type Work, type WorkResponse } from '../../api/works';
+import { ref } from 'vue';
+import type { WorkCreateRequest } from '../../composables/admin/works/new/types';
+import { useNewWork } from '../../composables/admin/works/new/useNewWork';
 
-const route = useRoute();
-const router = useRouter();
-
-const work = ref<Omit<Work, 'id' | 'createdAt' | 'updatedAt'>>({
+const work = ref<WorkCreateRequest>({
   title: '',
   description: '',
   url: '',
-  techStack: ''
+  techStack: '',
 });
-const errorMessage = ref<string|null>();
-
-onMounted(async () => {
-  const id = route.params.id as string | undefined;
-  if (id) {
-    const existing = await getWorkById(Number(id));
-    if (existing) {
-      work.value = { ...existing };
-    }
-  }
-});
+const { errorMessage, createWork } = useNewWork();
 
 const create = async () => {
-  const response: WorkResponse = await createWork(work.value);
-  if(response.data){
-    router.push('/admin/works');
-  }else{
-    errorMessage.value = response.error;
-  }
+  await createWork(work.value);
 };
 </script>
 
