@@ -24,7 +24,7 @@ instance.interceptors.request.use((config) => {
       '/api/careers',
     ];
 
-    if (token && !excludeUrls.some(url => config.url?.includes(url))) {
+    if (token && !(config.method === 'get' && excludeUrls.some(url => config.url?.includes(url)))) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
