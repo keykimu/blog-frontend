@@ -1,8 +1,11 @@
 <template>
   <NavigationBar />
   <div class="new-work">
-    <h2>{{ isEdit ? '編集' : '成果物作成' }}</h2>
-    <form @submit.prevent="save">
+    <h2>成果物作成</h2>
+    <div class="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <form @submit.prevent="create">
       <div class="form-row">
         <label for="title">タイトル</label>
         <input id="title" v-model="work.title" required />
@@ -13,11 +16,11 @@
       </div>
       <div class="form-row">
         <label for="imageUrl">画像URL</label>
-        <input id="imageUrl" v-model="work.imageUrl" />
+        <input id="imageUrl" v-model="work.url" />
       </div>
       <div class="form-row">
         <label for="techStack">技術スタック（カンマ区切り）</label>
-        <input id="techStack" v-model="techStackStr" />
+        <input id="techStack" v-model="work.techStack" />
       </div>
       <button type="submit">保存</button>
     </form>
@@ -25,26 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getWorkById, createWork, updateWork, type Work } from '../../api/works';
+import { getWorkById, createWork, type Work, type WorkResponse } from '../../api/works';
 
 const route = useRoute();
 const router = useRouter();
 
-const isEdit = ref(false);
 const work = ref<Omit<Work, 'id' | 'createdAt' | 'updatedAt'>>({
   title: '',
   description: '',
-  imageUrl: '',
-  techStack: [],
   url: '',
+  techStack: ''
 });
-
-const techStackStr = computed({
-  get: () => work.value.techStack.join(', '),
-  set: (val: string) => (work.value.techStack = val.split(',').map((s) => s.trim())),
-});
+const errorMessage = ref<string|null>();
 
 onMounted(async () => {
   const id = route.params.id as string | undefined;
@@ -52,18 +49,17 @@ onMounted(async () => {
     const existing = await getWorkById(Number(id));
     if (existing) {
       work.value = { ...existing };
-      isEdit.value = true;
     }
   }
 });
 
-const save = async () => {
-  if (isEdit.value && route.params.id) {
-    await updateWork(Number(route.params.id), work.value as Work);
-  } else {
-    await createWork(work.value as Work);
+const create = async () => {
+  const response: WorkResponse = await createWork(work.value);
+  if(response.data){
+    router.push('/admin/works');
+  }else{
+    errorMessage.value = response.error;
   }
-  router.push('/admin/works');
 };
 </script>
 
@@ -89,7 +85,6 @@ form {
   display: flex;
   align-items: center;
   gap: 1rem; /* ラベルと入力欄の間のスペース */
-
 }
 
 label {
