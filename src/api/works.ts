@@ -30,6 +30,7 @@ let works: Work[] = [
   },
 ];
 
+import type { WorkEditRequest } from "../composables/admin/works/edit/types";
 import type { WorkCreateRequest } from "../composables/admin/works/new/types";
 import api from "./axiosInstance"
 
@@ -45,8 +46,13 @@ export const getWorksAPI = async (): Promise<Work[]> => {
   }
 };
 
-export const getWorkById = (id: number): Promise<Work | undefined> => {
-  return new Promise((resolve) => setTimeout(() => resolve(works.find((w) => w.id === id)), 300));
+export const getWorkById = async (id: number): Promise<Work> => {
+  try {
+    const response = await api.get<Work>(`/api/works/${id}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error('取得に失敗しました');
+  }
 };
 
 export const createWorkAPI = async (createRequest: WorkCreateRequest) => {
@@ -67,11 +73,23 @@ export const createWorkAPI = async (createRequest: WorkCreateRequest) => {
   }
 };
 
-export const updateWork = (id: number, data: Partial<Work>) => {
-  const index = works.findIndex((w) => w.id === id);
-  if (index === -1) return Promise.reject('Not found');
-  works[index] = { ...works[index], ...data, updatedAt: new Date().toISOString() };
-  return Promise.resolve(works[index]);
+export const updateWork = async (work: Work) => {
+  try {
+    const request: WorkEditRequest = {
+      id:work.id,
+      title: work.title,
+      description: work.description,
+      techStack: work.techStack,
+      url: work.url
+    }
+    const response = await api.put(`/api/works/${work.id}`, request);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.data?.error) {
+      throw new Error(error.response.data.error);
+    }
+    throw new Error('通信に失敗しました');
+  }
 };
 
 export const deleteWork = (id: number) => {

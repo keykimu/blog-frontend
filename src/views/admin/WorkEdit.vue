@@ -1,7 +1,7 @@
 <template>
   <div class="work-edit">
     <h2>成果物編集</h2>
-    <form @submit.prevent="save" class="work-form">
+    <form @submit.prevent="update" class="work-form">
       <div class="form-row">
         <label for="title">タイトル</label>
         <input id="title" v-model="work.title" type="text" />
@@ -27,6 +27,10 @@
       </div>
     </form>
 
+    <div v-if="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+    
     <div class="preview">
       <label>プレビュー</label>
       <pre>{{ work }}</pre>
@@ -35,23 +39,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import { useEditWork } from '../../composables/admin/works/edit/useEditWork';
 
-const route = useRoute();
-const workId = route.params.id;
-
-const work = reactive({
-  id: workId,
-  title: 'モックタイトル',
-  description: 'モック説明',
-  techStack: 'Vue, TypeScript, Spring Boot',
-  url: 'https://example.com',
-});
-
-function save() {
-  alert('保存処理（モック）: ' + JSON.stringify(work));
-}
+const { work, errorMessage, update } = useEditWork();
 </script>
 
 <style lang="scss" scoped>
