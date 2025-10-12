@@ -5,7 +5,7 @@
     <!-- 名前・ニックネーム・イントロ・自己紹介 -->
     <section>
       <h3>基本情報</h3>
-      <form @submit.prevent="saveBasic" class="form-grid">
+      <form class="form-grid">
         <div class="form-row">
           <label>名前</label>
           <input v-model="profile.name" type="text" />
@@ -35,7 +35,8 @@
           <input v-model="profile.github" type="text" />
         </div>
       </form>
-      <button class="update-basic" type="submit">保存</button>
+      <button class="update-basic" @click="saveBasic">保存</button>
+      <div class="errorMessage">{{ errorMessage }}</div>
     </section>
 
     <hr />
@@ -90,17 +91,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
-// RU 部分（基本情報）
-const profile = ref({
-  name: '山田 太郎',
-  nickname: 'やまだ',
-  nameEn: 'Taro Yamada',
-  intro: 'フルスタックエンジニア',
-  bio: 'Vue / TypeScript / Spring Boot を中心に開発しています',
-  mail: 'keykimu1999@gmail.com',
-  github: 'https://github.com/keykimu',
-});
+import { useProfile } from '../../composables/admin/profile/useProfile';
+const { profile, errorMessage, saveBasic } = useProfile();
 
 // CRUD 部分
 const hobbies = ref(['読書', 'ゲーム']);
@@ -149,10 +141,6 @@ function removeCertificate(i: number) {
   certificates.value.splice(i, 1);
 }
 
-// 保存処理（モック）
-function saveBasic() {
-  alert('基本情報保存（モック）: ' + JSON.stringify(profile.value));
-}
 function saveAll() {
   const data = {
     profile: { ...profile.value },
