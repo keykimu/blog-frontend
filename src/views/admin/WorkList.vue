@@ -30,7 +30,7 @@ import { useWorks } from '../../composables/admin/works/useWorks';
 const { works, errorMessage, fetchWorks, removeWork } = useWorks();
 
 const remove = async (id: number) => {
-  if (confirm('削除してもよいですか？')) {
+  if (confirm('削除しますか？')) {
     await removeWork(id);
     await fetchWorks();
   }
