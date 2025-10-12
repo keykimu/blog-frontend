@@ -92,7 +92,13 @@ export const updateWork = async (work: Work) => {
   }
 };
 
-export const deleteWork = (id: number) => {
-  works = works.filter((w) => w.id !== id);
-  return Promise.resolve();
+export const deleteWork = async (id: number): Promise<void> => {
+  try {
+    await api.delete(`/api/works/${id}`);
+  } catch (error: any) {
+    console.error('削除に失敗しました:', error);
+    throw new Error(
+      error.response?.data?.error || '削除に失敗しました'
+    );
+  }
 };

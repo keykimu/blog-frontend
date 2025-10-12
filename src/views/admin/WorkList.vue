@@ -25,15 +25,14 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { deleteWork } from '../../api/works';
 import { useWorks } from '../../composables/admin/works/useWorks';
 
-const { works, errorMessage, fetchWorks } = useWorks();
+const { works, errorMessage, fetchWorks, removeWork } = useWorks();
 
 const remove = async (id: number) => {
   if (confirm('削除してもよいですか？')) {
-    await deleteWork(id);
-    fetchWorks();
+    await removeWork(id);
+    await fetchWorks();
   }
 };
 

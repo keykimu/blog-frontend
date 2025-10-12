@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { getWorksAPI, type Work } from "../../../api/works";
+import { deleteWork, getWorksAPI, type Work } from "../../../api/works";
 
 export const useWorks = () => {
   const works = ref<Work[]>([]);
@@ -13,5 +13,13 @@ export const useWorks = () => {
     }
   }
 
-  return {works, errorMessage,fetchWorks}
+  const removeWork = async (id: number) => {
+    try {
+      await deleteWork(id);
+    } catch (error: any) {
+      errorMessage.value = error.message || '削除に失敗しました';
+    }
+  };
+
+  return {works, errorMessage,fetchWorks,removeWork}
 };
