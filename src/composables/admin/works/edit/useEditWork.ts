@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getWorkById, updateWork } from '../../../../api/works';
-import type { Work } from './types';
+import type { Work } from '../types';
 
 export const useEditWork = () => {
   const route = useRoute();

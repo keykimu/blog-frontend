@@ -1,5 +1,6 @@
 import { ref } from "vue";
-import { deleteWork, getWorksAPI, type Work } from "../../../api/works";
+import { deleteWork, getWorksAPI } from "../../../api/works";
+import type { Work } from "./types";
 
 export const useWorks = () => {
   const works = ref<Work[]>([]);

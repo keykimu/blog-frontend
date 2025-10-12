@@ -1,15 +1,6 @@
-export interface Work {
-  id: number;
-  title: string;
-  description: string;
-  url: string;
-  techStack: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 import type { WorkEditRequest } from "../composables/admin/works/edit/types";
 import type { WorkCreateRequest } from "../composables/admin/works/new/types";
+import type { Work } from "../composables/admin/works/types";
 import api from "./axiosInstance"
 
 export const getWorksAPI = async (): Promise<Work[]> => {
