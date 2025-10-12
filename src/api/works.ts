@@ -8,28 +8,6 @@ export interface Work {
   updatedAt: string;
 }
 
-
-let works: Work[] = [
-  {
-    id: 1,
-    title: 'ポートフォリオサイト',
-    description: 'Vue + TS + Spring Boot + PostgreSQL で作成',
-    url: 'https://example.com/image1.png',
-    techStack: 'Vue, TypeScript, Spring Boot',
-    createdAt: '2025-09-15T00:00:00Z',
-    updatedAt: '2025-09-15T00:00:00Z',
-  },
-  {
-    id: 2,
-    title: 'Todoアプリ',
-    description: 'Vue + TS で作成',
-    url: 'https://example.com/image2.png',
-    techStack: 'Vue, TypeScript',
-    createdAt: '2025-09-10T00:00:00Z',
-    updatedAt: '2025-09-12T00:00:00Z',
-  },
-];
-
 import type { WorkEditRequest } from "../composables/admin/works/edit/types";
 import type { WorkCreateRequest } from "../composables/admin/works/new/types";
 import api from "./axiosInstance"
