@@ -44,8 +44,8 @@
     <!-- CRUD セクション -->
     <section>
       <h3>趣味</h3>
-      <div v-for="(__, index) in hobbies" :key="index" class="hobby-content">
-        <input v-model="hobbies[index]" class="hobby" />
+      <div v-for="(hobby, index) in hobbies" :key="index" class="hobby-content">
+        <input v-model="hobby.name" class="name" placeholder="趣味名称" type="text"/>
         <button class="delete-button" @click="removeHobby(index)">削除</button>
       </div>
       <button @click="addHobby">追加</button>
@@ -85,72 +85,43 @@
     </section>
 
     <br />
-    <button @click="saveAll">全て保存（モック）</button>
+    <div class="itemErrorMessage">{{ itemErrorMessage }}</div>
+    <button @click="handlesaveAllUpdate">全て保存</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted } from 'vue';
 import { useProfile } from '../../composables/admin/profile/useProfile';
+import { useProfileItems } from '../../composables/admin/profile/useProfileItems';
 const { profile, errorMessage, saveBasic } = useProfile();
 
-// CRUD 部分
-const hobbies = ref(['読書', 'ゲーム']);
-type YearName = { year: string; name: string };
+const {
+  hobbies,
+  careers,
+  events,
+  certificates,
+  itemErrorMessage,
+  fetchAllProfileItems,
+  updateAllProfileItems,
+  addHobby,
+  removeHobby,
+  addCareer,
+  removeCareer,
+  addEvent,
+  removeEvent,
+  addCertificate,
+  removeCertificate
+} = useProfileItems();
 
-const careers = ref<YearName[]>([
-  { year: '2020', name: '会社A 入社' },
-  { year: '2022', name: '会社B 入社' },
-]);
+onMounted(fetchAllProfileItems);
 
-const events = ref<YearName[]>([
-  { year: '2021', name: 'ハッカソン参加' },
-  { year: '2022', name: '勉強会登壇' },
-]);
-
-const certificates = ref<YearName[]>([
-  { year: '2019', name: '基本情報技術者' },
-  { year: '2023', name: 'AWS認定ソリューションアーキテクト' },
-]);
-
-function addHobby() {
-  hobbies.value.push('');
-}
-function removeHobby(i: number) {
-  hobbies.value.splice(i, 1);
-}
-
-function addCareer() {
-  careers.value.push({ year: '', name: '' });
-}
-function removeCareer(i: number) {
-  careers.value.splice(i, 1);
-}
-
-function addEvent() {
-  events.value.push({ year: '', name: '' });
-}
-function removeEvent(i: number) {
-  events.value.splice(i, 1);
-}
-
-function addCertificate() {
-  certificates.value.push({ year: '', name: '' });
-}
-function removeCertificate(i: number) {
-  certificates.value.splice(i, 1);
-}
-
-function saveAll() {
-  const data = {
-    profile: { ...profile.value },
-    hobbies: [...hobbies.value],
-    careers: careers.value.map((c) => ({ ...c })),
-    events: events.value.map((e) => ({ ...e })),
-    certificates: certificates.value.map((c) => ({ ...c })),
-  };
-  alert('すべて保存（モック）: ' + JSON.stringify(data, null, 2));
-}
+const handlesaveAllUpdate = async () => {
+  const result = await updateAllProfileItems();
+  if (result.success) {
+    alert('趣味・経歴・イベント・資格・を保存しました');
+  }
+};
 </script>
 
 <style scoped>
@@ -196,7 +167,7 @@ function saveAll() {
   }
   input,
   textarea {
-    width: 70%;
+    width: 455px;
     margin-bottom: 4px;
   }
   button {
@@ -205,7 +176,7 @@ function saveAll() {
   .hobby-content {
     display: flex;
     padding-bottom: 10px;
-    .hobby {
+    .name {
       margin-right: 10px;
     }
   }
@@ -234,6 +205,9 @@ function saveAll() {
     padding-right: 2rem;
     padding-bottom: 2rem;
 
+    label{
+      font-size: 14px;
+    }
     .delete-button {
       width: 80px;
     }
