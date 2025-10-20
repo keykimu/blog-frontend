@@ -16,8 +16,8 @@
         </thead>
         <tr v-for="(lang, index) in languages" :key="index">
           <td><input v-model="lang.name" /></td>
-          <td><input v-model.number="lang.level" type="number" /></td>
-          <td><input v-model="lang.experience" type="text" /></td>
+          <td><input v-model.number="lang.level" /></td>
+          <td><input v-model="lang.experience" /></td>
           <td>
             <button @click="removeLanguage(index)">削除</button>
           </td>
@@ -40,7 +40,7 @@
         <tbody>
           <tr v-for="(fw, index) in frameworks" :key="index">
             <td><input v-model="fw.name" /></td>
-            <td><input v-model.number="fw.level" type="number" /></td>
+            <td><input v-model="fw.level" /></td>
             <td>
               <button @click="removeFramework(index)">削除</button>
             </td>
@@ -64,7 +64,7 @@
         <tbody>
           <tr v-for="(other, index) in others" :key="index">
             <td><input v-model="other.name" /></td>
-            <td><input v-model.number="other.level" type="number" /></td>
+            <td><input v-model="other.level" /></td>
             <td>
               <button @click="removeOther(index)">削除</button>
             </td>
@@ -75,56 +75,41 @@
     </section>
 
     <br />
-    <button @click="saveAll">保存（モック）</button>
+    <div class="itemErrorMessage">{{ errorMessage }}</div>
+    <button @click="handleSaveAll">保存</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { onMounted } from 'vue';
+import { useSkills } from '../../composables/admin/skills/useSkills';
+import { useRouter } from 'vue-router';
 
-// 言語スキル
-const languages = reactive([
-  { name: 'JavaScript', level: 4, experience: '3年' },
-  { name: 'TypeScript', level: 4, experience: '2年' },
-]);
+const router = useRouter();
+const {
+  languages,
+  frameworks,
+  others,
+  errorMessage,
+  fetchAllSkills,
+  updateAllSkills,
+  addLanguage,
+  removeLanguage,
+  addFramework,
+  removeFramework,
+  addOther,
+  removeOther
+} = useSkills();
 
-// フレームワークスキル
-const frameworks = reactive([
-  { name: 'Vue', level: 4 },
-  { name: 'Spring Boot', level: 3 },
-]);
+onMounted(fetchAllSkills);
 
-// その他スキル
-const others = reactive([
-  { name: 'Git', level: 4 },
-  { name: 'Docker', level: 3 },
-]);
-
-// CRUD 用関数
-function addLanguage() {
-  languages.push({ name: '', level: 1, experience: '' });
-}
-function removeLanguage(index: number) {
-  languages.splice(index, 1);
-}
-
-function addFramework() {
-  frameworks.push({ name: '', level: 1 });
-}
-function removeFramework(index: number) {
-  frameworks.splice(index, 1);
-}
-
-function addOther() {
-  others.push({ name: '', level: 1 });
-}
-function removeOther(index: number) {
-  others.splice(index, 1);
-}
-
-function saveAll() {
-  alert('保存処理（モック）\n' + JSON.stringify({ languages, frameworks, others }, null, 2));
-}
+const handleSaveAll = async () => {
+  const result = await updateAllSkills();
+  if (result.success) {
+    alert('スキルを保存しました');
+    router.push('/admin/top');
+  }
+};
 </script>
 
 <style scoped>
