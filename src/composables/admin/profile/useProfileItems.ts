@@ -1,15 +1,6 @@
 import { ref } from 'vue';
-import type { Career, Certificate, Hobby, Event } from './types/indet';
-import {
-  getCareers,
-  getCertificates,
-  getEvents,
-  getHobbies,
-  updateCareer,
-  updateCertificate,
-  updateEvent,
-  updateHobby,
-} from '../../../api/profile';
+import type { Hobby, Career, Event, Certificate, ProfileItemsRequest } from './types/index';
+import { getProfileItems, updateProfileItems } from '../../../api/profile';
 
 export const useProfileItems = () => {
   const hobbies = ref<Hobby[]>([]);
@@ -21,16 +12,11 @@ export const useProfileItems = () => {
   // --- 初期取得 ---
   const fetchAllProfileItems = async () => {
     try {
-      const [h, c, e, certs] = await Promise.all([
-        getHobbies(),
-        getCareers(),
-        getEvents(),
-        getCertificates(),
-      ]);
-      hobbies.value = h;
-      careers.value = c;
-      events.value = e;
-      certificates.value = certs;
+      const data = await getProfileItems();
+      hobbies.value = data.hobbyResponse;
+      careers.value = data.careerResponse;
+      events.value = data.eventResponse;
+      certificates.value = data.certificateResponse;
     } catch (err: any) {
       itemErrorMessage.value = err.message || 'プロフィール項目の取得に失敗しました';
     }
@@ -39,28 +25,15 @@ export const useProfileItems = () => {
   // --- 一括更新 ---
   const updateAllProfileItems = async () => {
     itemErrorMessage.value = null;
-
     try {
-      const hobbyItemRequest = hobbies.value.map(({ name }) => ({ name }));
-      const hobbyRequest = { hobbies: hobbyItemRequest };
+      const request: ProfileItemsRequest = {
+        hobbyListRequest: { hobbies: hobbies.value.map(({ name }) => ({ name })) },
+        careerListRequest: { careers: careers.value.map(({ year, name }) => ({ year, name })) },
+        eventListRequest: { events: events.value.map(({ year, name }) => ({ year, name })) },
+        certificateListRequest: { certificates: certificates.value.map(({ year, name }) => ({ year, name })) },
+      };
 
-      const careerItemRequest = careers.value.map(({ year, name }) => ({ year, name }));
-      const careerRequest = { careers: careerItemRequest };
-
-      const eventItemRequest = events.value.map(({ year, name }) => ({ year, name }));
-      const eventRequest = { events: eventItemRequest };
-
-      const certificateItemRequest = certificates.value.map(({ year, name }) => ({ year, name }));
-      const certificateRequest = { certificates: certificateItemRequest };
-
-      // 各カテゴリを一括更新（API側はListRequestを受け取る）
-      await Promise.all([
-        updateHobby(hobbyRequest),
-        updateCareer(careerRequest),
-        updateEvent(eventRequest),
-        updateCertificate(certificateRequest),
-      ]);
-
+      await updateProfileItems(request);
       return { success: true };
     } catch (err: any) {
       itemErrorMessage.value = err.message || '更新中にエラーが発生しました';
