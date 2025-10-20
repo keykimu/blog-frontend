@@ -34,6 +34,7 @@ export const useEditWork = () => {
     try {
       const response = await updateWork(work.value);
       if (response) {
+        alert(`成果物ページ${work.value.title}を更新しました`);
         router.push('/admin/works');
       } else {
         errorMessage.value = response.error;

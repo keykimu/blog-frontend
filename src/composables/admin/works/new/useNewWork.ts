@@ -10,6 +10,7 @@ export const useNewWork = () => {
   const createWork = async (request: WorkCreateRequest) => {
     try{
       await createWorkAPI(request);
+      alert('成果物ページを作成しました');
       router.push('/admin/works');
     }catch(err: any){
       if (err.response?.data?.error) {
