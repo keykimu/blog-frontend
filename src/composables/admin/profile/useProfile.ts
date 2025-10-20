@@ -1,8 +1,10 @@
 import { ref, onMounted } from 'vue';
 import { getProfile, updateProfile } from '../../../api/profile';
-import type { Profile } from './types/indet';
+import type { Profile } from './types';
+import { useRouter } from 'vue-router';
 
 export const useProfile = () => {
+  const router = useRouter();
   const profile = ref<Profile>({
     id: 1,
     name: '',
@@ -30,6 +32,7 @@ export const useProfile = () => {
     try {
       await updateProfile(profile.value);
       alert('基本情報を保存しました');
+      router.push('/admin/top');
     } catch (err: any) {
       errorMessage.value = err.message;
     }

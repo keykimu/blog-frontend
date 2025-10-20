@@ -94,7 +94,10 @@
 import { onMounted } from 'vue';
 import { useProfile } from '../../composables/admin/profile/useProfile';
 import { useProfileItems } from '../../composables/admin/profile/useProfileItems';
+import { useRouter } from 'vue-router';
+
 const { profile, errorMessage, saveBasic } = useProfile();
+const router = useRouter();
 
 const {
   hobbies,
@@ -120,6 +123,7 @@ const handlesaveAllUpdate = async () => {
   const result = await updateAllProfileItems();
   if (result.success) {
     alert('趣味・経歴・イベント・資格・を保存しました');
+    router.push('/admin/top');
   }
 };
 </script>
