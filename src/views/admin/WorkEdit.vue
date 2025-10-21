@@ -3,12 +3,12 @@
     <h2>成果物編集</h2>
     <form @submit.prevent="update" class="work-form">
       <div class="form-row">
-        <label for="title">タイトル</label>
+        <label for="title">タイトル<span class="required">*</span></label>
         <input id="title" v-model="work.title" type="text" />
       </div>
 
       <div class="form-row">
-        <label for="description">説明</label>
+        <label for="description">説明<span class="required">*</span></label>
         <textarea id="description" v-model="work.description"></textarea>
       </div>
 
@@ -45,6 +45,9 @@ const { work, errorMessage, update } = useEditWork();
 </script>
 
 <style lang="scss" scoped>
+.required {
+  color: red;
+}
 .work-edit {
   padding: 2rem;
   max-width: 700px;
@@ -133,12 +136,6 @@ const { work, errorMessage, update } = useEditWork();
     padding-top: 3rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
-
-    .form-actions {
-      button {
-        width: 100%;
-      }
-    }
   }
 }
 </style>

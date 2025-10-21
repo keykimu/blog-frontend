@@ -7,11 +7,11 @@
     </div>
     <form @submit.prevent="create">
       <div class="form-row">
-        <label for="title">タイトル</label>
+        <label for="title">タイトル<span class="required">*</span></label>
         <input id="title" v-model="work.title" required />
       </div>
       <div class="form-row">
-        <label for="description">説明</label>
+        <label for="description">説明<span class="required">*</span></label>
         <textarea id="description" v-model="work.description" required></textarea>
       </div>
       <div class="form-row">
@@ -19,7 +19,7 @@
         <input id="imageUrl" v-model="work.url" />
       </div>
       <div class="form-row">
-        <label for="techStack">技術スタック（カンマ区切り）</label>
+        <label for="techStack">タグ（,区切り）</label>
         <input id="techStack" v-model="work.techStack" />
       </div>
       <button type="submit">保存</button>
@@ -46,6 +46,9 @@ const create = async () => {
 </script>
 
 <style scoped>
+.required {
+  color: red;
+}
 .new-work {
   padding: 2rem;
 
@@ -72,6 +75,9 @@ form {
 label {
   width: 150px; /* ラベル幅を固定して列を揃える */
   font-weight: 500;
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 }
 
 input,

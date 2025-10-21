@@ -8,7 +8,7 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目</th>
+            <th>項目<span class="required">*</span></th>
             <th>レベル</th>
             <th>経験歴</th>
             <th>操作</th>
@@ -32,7 +32,7 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目</th>
+            <th>項目<span class="required">*</span></th>
             <th>レベル</th>
             <th>操作</th>
           </tr>
@@ -56,7 +56,7 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目</th>
+            <th>項目<span class="required">*</span></th>
             <th>レベル</th>
             <th>操作</th>
           </tr>
@@ -113,6 +113,9 @@ const handleSaveAll = async () => {
 </script>
 
 <style scoped>
+.required {
+  color: red;
+}
 .skill {
   padding: 2rem;
   .table {
@@ -126,7 +129,7 @@ const handleSaveAll = async () => {
     text-align: left;
   }
   input {
-    width: 100%;
+    width: 95%;
   }
   section {
     margin-bottom: 20px;

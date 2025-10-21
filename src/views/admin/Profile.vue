@@ -7,36 +7,36 @@
       <h3>基本情報</h3>
       <form class="form-grid">
         <div class="form-row">
-          <label>名前</label>
+          <label>名前<span class="required">*</span></label>
           <input v-model="profile.name" type="text" />
         </div>
         <div class="form-row">
-          <label>ニックネーム</label>
+          <label>ニックネーム<span class="required">*</span></label>
           <input v-model="profile.nickname" type="text" />
         </div>
         <div class="form-row">
-          <label>名前（英語）</label>
+          <label>名前（英語）<span class="required">*</span></label>
           <input v-model="profile.nameEn" type="text" />
         </div>
         <div class="form-row">
-          <label>一言</label>
+          <label>一言<span class="required">*</span></label>
           <input v-model="profile.intro" type="text" />
         </div>
         <div class="form-row">
-          <label>自己紹介</label>
+          <label>自己紹介<span class="required">*</span></label>
           <textarea v-model="profile.bio"></textarea>
         </div>
         <div class="form-row">
-          <label>メール</label>
+          <label>メール<span class="required">*</span></label>
           <input v-model="profile.mail" type="email" />
         </div>
         <div class="form-row">
-          <label>github</label>
+          <label>github<span class="required">*</span></label>
           <input v-model="profile.github" type="text" />
         </div>
       </form>
-      <button class="update-basic" @click="saveBasic">保存</button>
       <div class="errorMessage">{{ errorMessage }}</div>
+      <button class="update-basic" @click="saveBasic">保存</button>
     </section>
 
     <hr />
@@ -45,6 +45,7 @@
     <section>
       <h3>趣味</h3>
       <div v-for="(hobby, index) in hobbies" :key="index" class="hobby-content">
+        <span class="required">*</span>
         <input v-model="hobby.name" class="name" placeholder="趣味名称" type="text"/>
         <button class="delete-button" @click="removeHobby(index)">削除</button>
       </div>
@@ -55,8 +56,8 @@
     <section>
       <h3>経歴</h3>
       <div v-for="(career, index) in careers" :key="index" class="career">
-        <input v-model="career.year" class="year" placeholder="年" type="text" />
-        <input v-model="career.name" class="name" placeholder="経歴名称" type="text" />
+        <span class="required">*</span><input v-model="career.year" class="year" placeholder="年" type="text" />
+        <span class="required">*</span><input v-model="career.name" class="name" placeholder="経歴名称" type="text" />
         <button class="delete-button" @click="removeCareer(index)">削除</button>
       </div>
       <button @click="addCareer">追加</button>
@@ -66,8 +67,8 @@
     <section>
       <h3>イベント</h3>
       <div v-for="(event, index) in events" :key="index" class="event">
-        <input v-model="event.year" class="year" placeholder="年" type="text" />
-        <input v-model="event.name" class="name" placeholder="イベント名称" type="text" />
+        <span class="required">*</span><input v-model="event.year" class="year" placeholder="年" type="text" />
+        <span class="required">*</span><input v-model="event.name" class="name" placeholder="イベント名称" type="text" />
         <button class="delete-button" @click="removeEvent(index)">削除</button>
       </div>
       <button @click="addEvent">追加</button>
@@ -77,8 +78,8 @@
     <section>
       <h3>資格</h3>
       <div v-for="(cert, index) in certificates" :key="index" class="certificate">
-        <input class="year" v-model="cert.year" placeholder="年" type="text" />
-        <input class="name" v-model="cert.name" placeholder="資格名称" type="text" />
+        <span class="required">*</span><input class="year" v-model="cert.year" placeholder="年" type="text" />
+        <span class="required">*</span><input class="name" v-model="cert.name" placeholder="資格名称" type="text" />
         <button class="delete-button" @click="removeCertificate(index)">削除</button>
       </div>
       <button @click="addCertificate">追加</button>
@@ -86,7 +87,7 @@
 
     <br />
     <div class="itemErrorMessage">{{ itemErrorMessage }}</div>
-    <button @click="handlesaveAllUpdate">全て保存</button>
+    <button @click="handlesaveAllUpdate">保存</button>
   </div>
 </template>
 
@@ -129,6 +130,9 @@ const handlesaveAllUpdate = async () => {
 </script>
 
 <style scoped>
+.required {
+  color: red;
+}
 .form-grid {
   display: flex;
   flex-direction: column;
@@ -140,7 +144,7 @@ const handlesaveAllUpdate = async () => {
     gap: 1rem;
 
     label {
-      width: 6em; /* ← 最大ラベルに合わせて幅固定（例: 名前（英語）） */
+      width: 7em; /* ← 最大ラベルに合わせて幅固定（例: 名前（英語）） */
       text-align: left;
       font-weight: bold;
     }
@@ -151,6 +155,7 @@ const handlesaveAllUpdate = async () => {
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      width: 7em;
     }
 
     textarea {
@@ -171,7 +176,7 @@ const handlesaveAllUpdate = async () => {
   }
   input,
   textarea {
-    width: 455px;
+    width: 467px;
     margin-bottom: 4px;
   }
   button {
@@ -198,9 +203,6 @@ const handlesaveAllUpdate = async () => {
       width: 400px;
       margin-right: 10px;
     }
-    .year {
-      width: 40px;
-    }
   }
 
   @media (max-width: 768px) {
@@ -214,6 +216,13 @@ const handlesaveAllUpdate = async () => {
     }
     .delete-button {
       width: 80px;
+    }
+    .career,
+    .event,
+    .certificate {
+      .name{
+        width:160px;
+      }
     }
   }
 }

@@ -3,11 +3,11 @@
     <h1>管理者ページ</h1>
     <form class="form" @submit.prevent="login">
       <div class="form-row">
-        <label for="username">ユーザー名</label>
+        <label for="username">ユーザー名<span class="required">*</span></label>
         <input id="username" type="text" v-model="username" />
       </div>
       <div class="form-row">
-        <label for="password">パスワード</label>
+        <label for="password">パスワード<span class="required">*</span></label>
         <input id="password" type="password" v-model="password" />
       </div>
       <button type="submit">ログイン</button>
@@ -52,6 +52,9 @@ async function login() {
 </script>
 
 <style scoped>
+.required {
+  color: red;
+}
 .login {
   display: flex;
   flex-direction: column;
@@ -87,6 +90,8 @@ input {
 }
 
 button {
+  align-self: center;
+  width: 25%;
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
