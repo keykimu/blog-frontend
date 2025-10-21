@@ -13,10 +13,7 @@ export const useNewWork = () => {
       alert('成果物ページを作成しました');
       router.push('/admin/works');
     }catch(err: any){
-      if (err.response?.data?.error) {
-        throw new Error(err.response.data.error);
-      }
-      throw new Error('通信に失敗しました');
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 

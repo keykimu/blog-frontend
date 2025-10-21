@@ -18,7 +18,7 @@ export const useProfileItems = () => {
       events.value = data.eventResponse;
       certificates.value = data.certificateResponse;
     } catch (err: any) {
-      itemErrorMessage.value = err.message || 'プロフィール項目の取得に失敗しました';
+      itemErrorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 
@@ -36,7 +36,7 @@ export const useProfileItems = () => {
       await updateProfileItems(request);
       return { success: true };
     } catch (err: any) {
-      itemErrorMessage.value = err.message || '更新中にエラーが発生しました';
+      itemErrorMessage.value = err?.message || '通信に失敗しました';
       return { success: false, error: itemErrorMessage.value };
     }
   };

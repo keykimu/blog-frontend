@@ -10,15 +10,15 @@ export const useWorks = () => {
     try {
       works.value = await getWorksAPI();
     } catch (err: any) {
-      errorMessage.value = err.message;
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   }
 
   const removeWork = async (id: number) => {
     try {
       await deleteWork(id);
-    } catch (error: any) {
-      errorMessage.value = error.message || '削除に失敗しました';
+    } catch (err: any) {
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 

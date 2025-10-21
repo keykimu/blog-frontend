@@ -23,8 +23,8 @@ export const useEditWork = () => {
     try {
       const id = Number(route.params.id);
       work.value = await getWorkById(id);
-    } catch (error: any) {
-      errorMessage.value = error.message || '取得に失敗しました';
+    } catch (err: any) {
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 
@@ -39,8 +39,8 @@ export const useEditWork = () => {
       } else {
         errorMessage.value = response.error;
       }
-    } catch (error: any) {
-      errorMessage.value = '更新に失敗しました';
+    } catch (err: any) {
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 

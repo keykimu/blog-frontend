@@ -34,7 +34,7 @@ export const useProfile = () => {
       alert('基本情報を保存しました');
       router.push('/admin/top');
     } catch (err: any) {
-      errorMessage.value = err.message;
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 

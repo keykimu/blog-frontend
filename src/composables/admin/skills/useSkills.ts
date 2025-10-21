@@ -18,7 +18,7 @@ export const useSkills = () => {
       frameworks.value = [...data.frameworkResponse];
       others.value = [...data.otherSkillResponse];
     } catch (err: any) {
-      errorMessage.value = err.message || 'スキル取得に失敗しました';
+      errorMessage.value = err?.message || '通信に失敗しました';
     }
   };
 
@@ -36,7 +36,7 @@ export const useSkills = () => {
       await updateSkills(request);
       return { success: true };
     } catch (err: any) {
-      errorMessage.value = err.message || '更新中にエラーが発生しました';
+      errorMessage.value = err?.message || '通信に失敗しました';
       return { success: false, error: errorMessage.value };
     }
   };
