@@ -8,10 +8,10 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目<span class="required">*</span></th>
-            <th>レベル</th>
-            <th>経験歴</th>
-            <th>操作</th>
+            <th class="name">項目<span class="required">*</span></th>
+            <th class="level">レベル</th>
+            <th class="experience">経験歴</th>
+            <th class="delete">操作</th>
           </tr>
         </thead>
         <tr v-for="(lang, index) in languages" :key="index">
@@ -32,9 +32,9 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目<span class="required">*</span></th>
-            <th>レベル</th>
-            <th>操作</th>
+            <th class="name">項目<span class="required">*</span></th>
+            <th class="level">レベル</th>
+            <th class="delete">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -56,9 +56,9 @@
       <table border="1">
         <thead>
           <tr>
-            <th>項目<span class="required">*</span></th>
-            <th>レベル</th>
-            <th>操作</th>
+            <th class="name">項目<span class="required">*</span></th>
+            <th class="level">レベル</th>
+            <th class="delete">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -128,6 +128,19 @@ const handleSaveAll = async () => {
     padding: 4px 8px;
     text-align: left;
   }
+
+  .name{
+    width: 300px;
+  }
+
+  .level{
+    width: 600px;
+  }
+
+  .experience{
+    width: 70px;
+  }
+
   input {
     width: 95%;
   }
@@ -140,6 +153,40 @@ const handleSaveAll = async () => {
     padding-top: 3rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
+
+    table, thead, tbody, tr, th, td {
+      display: block;
+      width: 100%;
+    }
+
+    thead { display: none; } /* ヘッダー非表示 */
+
+    tr {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+    }
+
+    td input {
+      flex: 1;
+      margin-left: 0.5rem;
+    }
+
+    /* ラベル用の擬似要素 */
+    td:nth-child(1)::before { content: "項目"; }
+    td:nth-child(2)::before { content: "レベル"; }
+    td:nth-child(3)::before { content: "経験歴"; }
+    td:nth-child(4)::before { content: "操作"; }
+    td::before {
+      font-weight: bold;
+      flex: 0 0 35%;
+    }
   }
 }
 </style>
