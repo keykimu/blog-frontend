@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import type { Hobby, Career, Event, Certificate, ProfileItemsRequest } from './types/index';
 import { getProfileItems, updateProfileItems } from '../../../api/profile';
+import { validateProfileItems } from './useProfileItemsValidations';
 
 export const useProfileItems = () => {
   const hobbies = ref<Hobby[]>([]);
@@ -25,14 +26,19 @@ export const useProfileItems = () => {
   // --- 一括更新 ---
   const updateAllProfileItems = async () => {
     itemErrorMessage.value = null;
-    try {
-      const request: ProfileItemsRequest = {
-        hobbyListRequest: { hobbies: hobbies.value.map(({ name }) => ({ name })) },
-        careerListRequest: { careers: careers.value.map(({ year, name }) => ({ year, name })) },
-        eventListRequest: { events: events.value.map(({ year, name }) => ({ year, name })) },
-        certificateListRequest: { certificates: certificates.value.map(({ year, name }) => ({ year, name })) },
-      };
+    const request: ProfileItemsRequest = {
+      hobbyListRequest: { hobbies: hobbies.value.map(({ name }) => ({ name })) },
+      careerListRequest: { careers: careers.value.map(({ year, name }) => ({ year, name })) },
+      eventListRequest: { events: events.value.map(({ year, name }) => ({ year, name })) },
+      certificateListRequest: { certificates: certificates.value.map(({ year, name }) => ({ year, name })) },
+    };
+    const error = validateProfileItems(request);
+    if (error) {
+      itemErrorMessage.value = error;
+      return;
+    }
 
+    try {
       await updateProfileItems(request);
       return { success: true };
     } catch (err: any) {
