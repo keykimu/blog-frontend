@@ -2,6 +2,7 @@ import { ref, onMounted } from 'vue';
 import { getProfile, updateProfile } from '../../../api/profile';
 import type { Profile } from './types';
 import { useRouter } from 'vue-router';
+import { validateProfile } from './useValidation';
 
 export const useProfile = () => {
   const router = useRouter();
@@ -29,6 +30,11 @@ export const useProfile = () => {
 
   const saveBasic = async () => {
     if (!profile.value) return;
+    const error = validateProfile(profile.value);
+    if (error) {
+      errorMessage.value = error;
+      return;
+    }
     try {
       await updateProfile(profile.value);
       alert('基本情報を保存しました');
