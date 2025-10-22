@@ -25,6 +25,7 @@
         <div class="form-row">
           <label>自己紹介<span class="required">*</span></label>
           <textarea v-model="profile.bio"></textarea>
+          <small>{{ profile.bio.length }} / {{ BIO_MAX }}</small>
         </div>
         <div class="form-row">
           <label>メール<span class="required">*</span></label>
@@ -97,6 +98,7 @@ import { useProfile } from '../../composables/admin/profile/useProfile';
 import { useProfileItems } from '../../composables/admin/profile/useProfileItems';
 import { useRouter } from 'vue-router';
 
+const BIO_MAX = 500;
 const { profile, errorMessage, saveBasic } = useProfile();
 const router = useRouter();
 
@@ -161,6 +163,10 @@ const handlesaveAllUpdate = async () => {
     textarea {
       resize: vertical;
       min-height: 3rem;
+    }
+
+    small{
+      margin-top:auto;
     }
   }
 }

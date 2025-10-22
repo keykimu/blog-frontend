@@ -9,20 +9,24 @@
       <div class="form-row">
         <label for="title">タイトル<span class="required">*</span></label>
         <input id="title" v-model="work.title" required />
+        <small>{{ work.title.length }} / {{ TITLE_MAX }}</small>
       </div>
       <div class="form-row">
         <label for="description">説明<span class="required">*</span></label>
         <textarea id="description" v-model="work.description" required></textarea>
+        <small>{{ work.description.length }} / {{ DESCRIPTION_MAX }}</small>
       </div>
       <div class="form-row">
         <label for="imageUrl">画像URL</label>
         <input id="imageUrl" v-model="work.url" />
+        <small></small>
       </div>
       <div class="form-row">
         <label for="techStack">タグ（,区切り）</label>
         <input id="techStack" v-model="work.techStack" />
+        <small></small>
       </div>
-      <button type="submit">保存</button>
+        <button type="submit">保存</button>
     </form>
   </div>
 </template>
@@ -31,6 +35,9 @@
 import { ref } from 'vue';
 import type { WorkCreateRequest } from '../../composables/admin/works/new/types';
 import { useNewWork } from '../../composables/admin/works/new/useNewWork';
+
+const TITLE_MAX = 100;
+const DESCRIPTION_MAX = 1000;
 
 const work = ref<WorkCreateRequest>({
   title: '',

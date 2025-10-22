@@ -5,11 +5,13 @@
       <div class="form-row">
         <label for="title">タイトル<span class="required">*</span></label>
         <input id="title" v-model="work.title" type="text" />
+        <small>{{ work.title.length }} / {{ TITLE_MAX }}</small>
       </div>
 
       <div class="form-row">
         <label for="description">説明<span class="required">*</span></label>
         <textarea id="description" v-model="work.description"></textarea>
+        <small>{{ work.description.length }} / {{ DESCRIPTION_MAX }}</small>
       </div>
 
       <div class="form-row">
@@ -40,6 +42,9 @@
 
 <script setup lang="ts">
 import { useEditWork } from '../../composables/admin/works/edit/useEditWork';
+
+const TITLE_MAX = 100;
+const DESCRIPTION_MAX = 1000;
 
 const { work, errorMessage, update } = useEditWork();
 </script>
@@ -111,6 +116,9 @@ const { work, errorMessage, update } = useEditWork();
           background-color: #2563eb;
         }
       }
+    }
+    small {
+      margin-left: auto;
     }
   }
 
