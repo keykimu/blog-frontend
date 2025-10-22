@@ -3,6 +3,7 @@ import type {
   LanguageResponse, FrameworkResponse, OtherSkillResponse, SkillsRequest
 } from './types/index';
 import { getSkills, updateSkills } from '../../../api/skills';
+import { validateSkill } from './useValidation';
 
 export const useSkills = () => {
   const languages = ref<LanguageResponse[]>([]);
@@ -31,7 +32,11 @@ export const useSkills = () => {
       frameworkListRequest: { frameworks: frameworks.value.map(({ name, level }) => ({ name, level })) },
       otherSkillListRequest: { otherSkills: others.value.map(({ name, level }) => ({ name, level })) },
     };
-
+    const error = validateSkill(request);
+    if (error) {
+      errorMessage.value = error;
+      return;
+    }
     try {
       await updateSkills(request);
       return { success: true };
