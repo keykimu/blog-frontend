@@ -2,9 +2,6 @@
   <NavigationBar />
   <div class="new-work">
     <h2>成果物作成</h2>
-    <div class="errorMessage">
-      {{ errorMessage }}
-    </div>
     <form @submit.prevent="create">
       <div class="form-row">
         <label for="title">タイトル<span class="required">*</span></label>
@@ -26,7 +23,10 @@
         <input id="techStack" v-model="work.techStack" />
         <small></small>
       </div>
-        <button type="submit">保存</button>
+      <div class="errorMessage">
+        {{ errorMessage }}
+      </div>
+      <button type="submit">保存</button>
     </form>
   </div>
 </template>

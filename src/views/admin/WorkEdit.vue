@@ -15,13 +15,17 @@
       </div>
 
       <div class="form-row">
-        <label for="techStack">技術スタック</label>
-        <input id="techStack" v-model="work.techStack" placeholder="Vue, TypeScript, Spring Boot" />
+        <label for="url">画像URL</label>
+        <input id="url" v-model="work.url" type="text" />
       </div>
 
       <div class="form-row">
-        <label for="url">URL</label>
-        <input id="url" v-model="work.url" type="text" />
+        <label for="techStack">タグ（,区切り）</label>
+        <input id="techStack" v-model="work.techStack" placeholder="Vue, TypeScript, Spring Boot" />
+      </div>
+
+      <div v-if="errorMessage" class="error">
+        {{ errorMessage }}
       </div>
 
       <div class="form-actions">
@@ -29,10 +33,6 @@
       </div>
     </form>
 
-    <div v-if="errorMessage" class="error">
-      {{ errorMessage }}
-    </div>
-    
     <div class="preview">
       <label>プレビュー</label>
       <pre>{{ work }}</pre>

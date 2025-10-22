@@ -2,6 +2,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getWorkById, updateWork } from '../../../../api/works';
 import type { Work } from '../types';
+import { validateWork } from '../useValidation';
 
 export const useEditWork = () => {
   const route = useRoute();
@@ -31,6 +32,11 @@ export const useEditWork = () => {
   // 成果物を更新
   const update = async () => {
     if (!work.value) return;
+    const error = validateWork(work.value);
+    if (error) {
+      errorMessage.value = error;
+      return;
+    }
     try {
       const response = await updateWork(work.value);
       if (response) {
