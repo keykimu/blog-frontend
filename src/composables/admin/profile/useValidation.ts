@@ -38,7 +38,7 @@ export const validateProfile = (profile: Profile): string | null => {
   // GitHub
   err = checkRequired(profile.github, 'GitHub') || checkLength(profile.github, 255, 'GitHub');
   if (err) return err;
-  const githubRegex = /^[a-zA-Z0-9_-]+$/;
+  const githubRegex = /^https:\/\/github\.com\/[a-zA-Z0-9_-]+$/;
   if (!githubRegex.test(profile.github)) return 'GitHubは半角英数字、ハイフン、アンダースコアのみ使用可能です';
 
   return null;
