@@ -8,25 +8,15 @@ const instance = axios.create({
 
 // リクエスト前に JWT を自動付与
 instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('jwt');
-    const excludeUrls = [
-      '/api/auth/login',
-      '/api/auth/check',
-      '/api/languages',
-      '/api/other-skills',
-      '/api/profile',
-      '/api/frameworks',
-      '/api/hobby',
-      '/api/works',
-      '/api/works/:id',
-      '/api/certificates',
-      '/api/events',
-      '/api/careers',
-    ];
+  const token = localStorage.getItem('jwt');
+  const url = config.url || '';
 
-    if (token && !(config.method === 'get' && excludeUrls.some(url => config.url?.includes(url)))) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  const isAdminApi = url.startsWith('/api/admin');
+  const isAuthApi = url.includes('/api/admin/auth/login') || url.includes('/api/admin/auth/check');
+
+  if (token && isAdminApi && !isAuthApi) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
     return config;
   }
 );
