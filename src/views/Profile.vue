@@ -4,24 +4,22 @@
     <!-- Top部分 -->
     <div class="top">
       <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
-      <h1 class="name">{{ name }}</h1>
-      <p class="intro">{{ intro }}</p>
+      <h1 class="name">{{ store.profile?.name }}</h1>
+      <p class="intro">{{ store.profile?.intro }}</p>
     </div>
 
     <!-- 自己紹介 -->
     <section class="about">
       <h2>自己紹介</h2>
       <ul>
-        {{
-          about
-        }}
+        <span class="bio">{{store.profile?.bio}}</span>
       </ul>
     </section>
     <div class="contents">
       <section class="hobbies">
         <h2>趣味</h2>
         <ul>
-          <li v-for="(hobby, i) in hobbies" :key="i">{{ hobby }}</li>
+          <li v-for="hobby in profileItems?.hobbyResponse" :key="hobby.id">{{ hobby.name }}</li>
         </ul>
       </section>
 
@@ -29,8 +27,9 @@
       <section class="career">
         <h2>経歴</h2>
         <ul>
-          <li v-for="item in career" :key="item.year">
-            <strong>{{ item.year }}</strong> {{ item.detail }}
+          <li v-for="career in profileItems?.careerResponse" :key="career.year">
+            <span class="career-year">{{ career.year }}</span>
+            <span class="career-name">{{ career.name }}</span>
           </li>
         </ul>
       </section>
@@ -38,8 +37,9 @@
       <section class="event">
         <h2>イベント</h2>
         <ul>
-          <li v-for="eventInfo in event" :key="eventInfo.year + eventInfo.name">
-            <strong>{{ eventInfo.year }}</strong> {{ eventInfo.name }}
+          <li v-for="event in profileItems?.eventResponse" :key="event.year + event.name">
+            <span class="event-year">{{ event.year }}</span>
+            <span class="event-name">{{ event.name }}</span>
           </li>
         </ul>
       </section>
@@ -48,8 +48,9 @@
       <section class="certifications">
         <h2>資格</h2>
         <ul>
-          <li v-for="cert in certifications" :key="cert.year + cert.name">
-            <strong>{{ cert.year }}</strong> {{ cert.name }}
+          <li v-for="cert in profileItems?.certificateResponse" :key="cert.year + cert.name">
+            <span class="cert-year">{{ cert.year }}</span>
+            <span class="cert-name">{{ cert.name }}</span>
           </li>
         </ul>
       </section>
@@ -58,41 +59,22 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import profileImage from '/akagi.png';
+import { usePublicProfileStore } from '../stores/usePublicProfileStore';
+import { fetchProfileItems } from '../api/public/profileItems/profileItems';
+import type { PublicProfileItemsResponse } from '../api/public/profileItems/types';
 
-const name = ref('木村勇紀');
-const intro = ref('駆け出しエンジニア');
+const store = usePublicProfileStore();
+const profileItems = ref<PublicProfileItemsResponse>();
 
-const about = ref(
-  `東京のIT企業に勤めています。
-  Javaを中心にバックエンドの開発をしてきましたが、最近はVue、TypeScriptを使用したフロントエンドの開発もしています。
-  詳しいスキルや経験はヘッダーのスキルを見てください。
-  ポートフォリオ兼、今後制作するであろう成果物をまとめるために制作しました。
-  `,
-);
-
-const hobbies = ref([
-  'アニメ・ゲーム（Key）',
-  'ライブ参戦（水樹奈々）',
-  'ボードゲーム（麻雀・将棋・花札）',
-  'お酒（特に日本酒）',
-]);
-const career = ref([
-  { year: '2018', detail: '商業高校　卒業' },
-  { year: '2022', detail: '専門学校　卒業' },
-  { year: '2022', detail: '株式会社 アドバンスト・ソフト　入社' },
-]);
-
-const event = ref([{ year: '', name: '' }]);
-
-const certifications = ref([
-  { year: '2017', name: '経済産業省　ITパスポート試験' },
-  { year: '2019', name: '経済産業省　基本情報技術者試験' },
-  { year: '2020', name: '経済産業省　応用情報技術者試験' },
-  { year: '2021', name: '普通自動車第一種運転免許' },
-  { year: '2022', name: 'Oracle Java Silver（Java SE 11 Programmer I）' },
-]);
+onMounted(async ()=>{
+  if(!store.profile){
+    await store.loadProfile();
+  }
+  const itemsResponse = await fetchProfileItems();
+  profileItems.value = itemsResponse;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -145,18 +127,33 @@ const certifications = ref([
         margin-bottom: 5px;
       }
     }
+
+    .career-year {
+      margin-right: 1em;
+    }
+    
+    .event-year{
+      margin-right: 1em;
+    }
+
+    .cert-year{
+      margin-right: 1em;
+    }
   }
 
   .about {
-    flex: 1 1 600px; // 最小幅300px、余白があれば伸縮
-    max-width: 800px; // 最大幅を設定
-    background: hsla(0, 0%, 100%, 0.089); // 任意：背景色
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap; // 画面が狭くなったら縦に折り返す
-    justify-content: center; // 横方向中央寄せ
-    white-space: pre-line;
+    h2 {
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 20px;
+    }
+
+    .bio{
+      align-items: center;
+    }
   }
 
   .contents {
@@ -164,7 +161,6 @@ const certifications = ref([
     flex-wrap: wrap; // 画面が狭くなったら縦に折り返す
     justify-content: center; // 横方向中央寄せ
     gap: 40px; // セクション間の余白
-    padding: 20px;
   }
 
   .contents section {
