@@ -23,7 +23,7 @@
     </button>
 
     <!-- GitHub -->
-    <a class="contact-item" :href="githubUrl" target="_blank" rel="noopener noreferrer">
+    <a class="contact-item" :href="store.profile?.github" target="_blank" rel="noopener noreferrer">
       <svg
         stroke="currentColor"
         fill="currentColor"
@@ -43,15 +43,24 @@
 </template>
 
 <script lang="ts" setup>
-const email = 'keykimu1999@gmail.com';
-const githubUrl = 'https://github.com/keykimu';
+import { onMounted } from 'vue';
+import { usePublicProfileStore } from '../stores/usePublicProfileStore';
+
+const store = usePublicProfileStore();
 
 const copyEmail = () => {
-  navigator.clipboard
-    .writeText(email)
+  if(store.profile){
+    navigator.clipboard.writeText(store.profile.mail)
     .then(() => alert('メールアドレスをコピーしました！'))
     .catch(() => alert('コピーに失敗しました'));
+  }
 };
+
+onMounted(async ()=>{
+  if(!store.profile){
+    await store.loadProfile();
+  }
+});
 </script>
 
 <style scoped lang="scss">
