@@ -1,14 +1,15 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { PublicProfileResponse } from "../api/public/profile/types";
+import { fetchPublicProfile } from "../api/public/profile/profile";
 
 
 export const usePublicProfileStore = defineStore('publicProfile', () => {
   const profile = ref<PublicProfileResponse | null>(null);
 
-  const setProfile = (data: PublicProfileResponse) => {
-    profile.value = data;
+  const loadProfile = async () => {
+    profile.value = await fetchPublicProfile();
   };
 
-  return { profile, setProfile };
+  return { profile, loadProfile };
 });

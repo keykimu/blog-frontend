@@ -14,18 +14,14 @@
 </template>
 
 <script lang="ts" setup>
-import { fetchPublicProfile } from '../api/public/profile/profile';
 import { usePublicProfileStore } from '../stores/usePublicProfileStore';
 import profileImage from '/akagi.png';
 import { onMounted } from 'vue';
 
-const store= usePublicProfileStore();
+const store = usePublicProfileStore();
 
 onMounted(async ()=>{
-  if(!store.profile){
-    const response = await fetchPublicProfile();
-    store.setProfile(response);
-  }
+  await store.loadProfile();
 });
 </script>
 
