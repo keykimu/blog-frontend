@@ -3,6 +3,5 @@ import app from "./../../axiosInstance"
 
 export const fetchPublicProfile = async (): Promise<PublicProfileResponse> => {
   const response = await app.get<PublicProfileResponse>(`/api/profile`);
-  console.log(response);
   return response.data;
 };
