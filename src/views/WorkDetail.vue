@@ -32,10 +32,10 @@ const renderedContent = computed(() => marked.parse(work.value.description));
 
 <style scoped lang="scss">
 .work-detail {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 50px auto;
   text-align: center;
-  padding: 20px;
+  padding: 0 20px;
 
   .date {
     color: #777;
@@ -54,83 +54,6 @@ const renderedContent = computed(() => marked.parse(work.value.description));
       object-fit: cover; // 画像が枠に収まるように調整
     }
   }
-
-  .content {
-    line-height: 1.6;
-    font-size: 1rem;
-
-    h2,
-    h3,
-    h4 {
-      margin-top: 20px;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin: 10px 0;
-    }
-
-    pre {
-      background: #f5f5f5;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
-    }
-  }
-}
-
-.work-detail {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 0 20px;
-
-  .date {
-    color: #777;
-    margin-bottom: 20px;
-  }
-
-  .images {
-    flex-wrap: wrap; // 複数画像を折り返す
-    gap: 20px; // 画像間の隙間
-    margin-bottom: 20px;
-
-    img {
-      flex: 1 1 300px; // 最小幅300px、余白に応じて伸縮
-      max-width: 400px;
-      max-height: 300px; // 縦に大きくなりすぎないよう制限
-      height: auto;
-      border-radius: 10px;
-      object-fit: cover; // 枠に収まるよう調整
-    }
-  }
-
-  .content {
-    line-height: 1.6;
-    font-size: 1rem;
-
-    h2,
-    h3,
-    h4 {
-      margin-top: 20px;
-    }
-
-    img {
-      max-width: 100%;
-      max-height: 400px;
-      height: auto;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-bottom: 20px;
-    }
-
-    pre {
-      background: #f5f5f5;
-      padding: 10px;
-      overflow-x: auto;
-    }
-  }
 }
 
 /* スマホ対応 */
@@ -138,13 +61,9 @@ const renderedContent = computed(() => marked.parse(work.value.description));
   .work-detail {
     .images {
       img {
-        flex: 1 1 100%; // 幅100%にして縦に並べる
         max-height: 250px;
+        max-width: 270px;
       }
-    }
-
-    .content img {
-      max-height: 250px;
     }
   }
 }
