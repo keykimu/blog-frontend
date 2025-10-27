@@ -4,6 +4,15 @@ import router from './router';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import './assets/styles/global.scss';
+import { createPinia } from 'pinia';
+
+const app = createApp(App);
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(router);
+app.component('Header', Header);
+app.component('Footer', Footer);
 
 router.beforeEach((to) => {
   // ページタイトルを更新
@@ -20,4 +29,4 @@ router.beforeEach((to) => {
   return true;
 });
 
-createApp(App).use(router).component('Header', Header).component('Footer', Footer).mount('#app');
+app.mount('#app');
