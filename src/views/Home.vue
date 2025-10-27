@@ -6,19 +6,27 @@
           <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
         </router-link>
 
-        <span class="nickname">{{ nickname }}</span>
+        <span class="nickname">{{ store.profile?.nickname }}</span>
       </div>
-      <span class="realname">{{ realname }}</span>
+      <span class="realname">{{ store.profile?.name }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { fetchPublicProfile } from '../api/public/profile/profile';
+import { usePublicProfileStore } from '../stores/usePublicProfileStore';
 import profileImage from '/akagi.png';
-import { ref } from 'vue';
+import { onMounted } from 'vue';
 
-const nickname = ref('kimu');
-const realname = ref('Yuki Kimura');
+const store= usePublicProfileStore();
+
+onMounted(async ()=>{
+  if(!store.profile){
+    const response = await fetchPublicProfile();
+    store.setProfile(response);
+  }
+});
 </script>
 
 <style lang="scss" scoped>
