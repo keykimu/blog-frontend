@@ -8,9 +8,9 @@
         :to="`/works/${item.id}`"
         class="card"
       >
-        <img :src="item.image" :alt="item.title" />
+        <img :src="item.url" :alt="item.title" />
         <h2>{{ item.title }}</h2>
-        <p>{{ item.date }}</p>
+        <p>{{ item.createdAt }}</p>
       </router-link>
     </div>
 
@@ -24,24 +24,52 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
-import { works } from '../data/works';
+import { ref, computed, onMounted } from 'vue';
+import { fetchPublicWorks } from '../api/public/work/works';
+import type { PublicWorkResponse } from '../api/public/work/types';
+import noImage from "@/assets/no_image.png";
 
 const page = ref(1);
 const perPage = 8;
-const totalPages = Math.ceil(works.length / perPage);
+
+const works = ref<PublicWorkResponse[]>([]);
+const error = ref<string | null>(null);
+const isLoading = ref(true);
+
+const totalPages = computed(()=>Math.ceil(works.value.length / perPage));
 
 const paginatedWorks = computed(() => {
   const start = (page.value - 1) * perPage;
-  return works.slice(start, start + perPage);
+  return works.value.slice(start, start + perPage);
 });
 
 const nextPage = () => {
-  if (page.value < totalPages) page.value++;
+  if (page.value < totalPages.value) page.value++;
 };
 const prevPage = () => {
   if (page.value > 1) page.value--;
 };
+
+const BASE_IMAGE_URL = import.meta.env.VITE_API_BASE_URL + "/uploads/";
+onMounted(async () => {
+  try {
+    works.value = await fetchPublicWorks();
+
+    works.value = works.value.map(work => ({
+      ...work,
+      url: work.url ? BASE_IMAGE_URL + work.url : noImage,
+      createdAt: (()=>{
+        const d = new Date(work.createdAt);
+        return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`;
+      })()
+    }));
+  } catch (err) {
+    error.value = "成果物の取得に失敗しました。";
+    console.error(err);
+  } finally {
+    isLoading.value = false;
+  }
+});
 </script>
 
 <style lang="scss" scoped>
