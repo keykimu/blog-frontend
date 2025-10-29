@@ -105,7 +105,7 @@ onMounted(fetchAllSkills);
 
 const handleSaveAll = async () => {
   const result = await updateAllSkills();
-  if (result.success) {
+  if (result?.success) {
     alert('スキルを保存しました');
     router.push('/admin/top');
   }

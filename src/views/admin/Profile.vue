@@ -124,7 +124,7 @@ onMounted(fetchAllProfileItems);
 
 const handlesaveAllUpdate = async () => {
   const result = await updateAllProfileItems();
-  if (result.success) {
+  if (result?.success) {
     alert('趣味・経歴・イベント・資格・を保存しました');
     router.push('/admin/top');
   }
