@@ -1,41 +1,70 @@
 <template>
-  <div class="work-detail">
-    <h1>{{ work.title }}</h1>
-    <p class="date">{{ work.date }}</p>
+  <div v-if="work" class="work-detail">
+    <h1>成果物</h1>
+    <h2>{{ work.title }}</h2>
+    <p class="date">作成日付 {{ work.createdAt }}</p>
     <div class="images">
-      <img :src="work.image" :alt="work.title" />
+      <img :src="work.url" :alt="work.title" />
     </div>
-    <div class="content" v-html="renderedContent"></div>
+    <div class="content" v-html="formattedDescription"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { works } from '../data/works';
-import { marked } from 'marked';
+import { fetchPublicWorkById } from '../api/public/work/works';
+import noImage from "@/assets/no_image.png";
+import { usePublicWorksStore } from '../stores/usePublicWorksStore';
+import type { PublicWorkResponse } from '../api/public/work/types';
 
+const store = usePublicWorksStore();
 const route = useRoute();
-const id = route.params.id as string;
 
-const work = ref(
-  works.find((w) => w.id.toString() === id) || {
-    title: 'Not Found',
-    date: '',
-    description: '',
-    image: '',
-  },
+const work = ref<PublicWorkResponse | null>(null);
+const isLoading = ref(true);
+const error = ref<string | null>(null);
+
+const BASE_IMAGE_URL = import.meta.env.VITE_API_BASE_URL + "/uploads/";
+
+onMounted(async () => {
+  try {
+    const id = Number(route.params.id);
+
+    // ストアに選択済みデータがある場合は再取得しない
+    if (store.selectedWork && store.selectedWork.id === id) {
+      work.value = store.selectedWork;
+    } else {
+      const response = await fetchPublicWorkById(id);
+      const d = new Date(response.createdAt);
+
+      work.value = {
+        ...response,
+        url: response.url ? BASE_IMAGE_URL + response.url : noImage,
+        createdAt: `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`,
+      };
+    }
+  } catch (err) {
+    console.error(err);
+    error.value = "成果物の詳細を取得できませんでした。";
+  } finally {
+    isLoading.value = false;
+  }
+});
+
+const formattedDescription = computed(() =>
+  work.value
+    ? work.value.description.replace(/\n/g, "<br>")
+    : ""
 );
-
-const renderedContent = computed(() => marked.parse(work.value.description));
 </script>
 
 <style scoped lang="scss">
 .work-detail {
-  max-width: 800px;
-  margin: 50px auto;
+  max-width: 1200px;
+  margin: 0 auto;
   text-align: center;
-  padding: 0 20px;
+  padding: 20px;
 
   .date {
     color: #777;
