@@ -1,7 +1,8 @@
-import type { WorkEditRequest } from "../composables/admin/works/edit/types";
-import type { WorkCreateRequest } from "../composables/admin/works/new/types";
-import type { Work } from "../composables/admin/works/types";
-import api from "./axiosInstance"
+
+import type { WorkEditRequest } from "../../composables/admin/works/edit/types";
+import type { WorkCreateRequest } from "../../composables/admin/works/new/types";
+import type { Work } from "../../composables/admin/works/types";
+import api from "../axiosInstance"
 
 export const getWorksAPI = async (): Promise<Work[]> => {
   try {

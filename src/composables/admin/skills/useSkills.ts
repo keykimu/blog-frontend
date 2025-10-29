@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import type {
   LanguageResponse, FrameworkResponse, OtherSkillResponse, SkillsRequest
 } from './types/index';
-import { getSkills, updateSkills } from '../../../api/skills';
+import { getSkills, updateSkills } from '../../../api/admin/skills';
 import { validateSkill } from './useValidation';
 
 export const useSkills = () => {

@@ -1,5 +1,5 @@
-import api  from './axiosInstance'; // 既存の api インスタンス
-import type { SkillsRequest, SkillsResponse } from '../composables/admin/skills/types';
+import api  from './../axiosInstance'; // 既存の api インスタンス
+import type { SkillsRequest, SkillsResponse } from '../../composables/admin/skills/types';
 
 export const getSkills = async (): Promise<SkillsResponse> => {
   try {

@@ -1,9 +1,5 @@
-import api from '../api/axiosInstance';
-import type {
-  Profile,
-  ProfileItemsRequest,
-  ProfileItemsResponse
-} from '../composables/admin/profile/types';
+import type { Profile, ProfileItemsRequest, ProfileItemsResponse } from '../../composables/admin/profile/types';
+import api from './../axiosInstance';
 
 export const getProfile = async (): Promise<Profile> => {
   try {

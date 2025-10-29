@@ -1,6 +1,6 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getWorkById, updateWork } from '../../../../api/works';
+import { getWorkById, updateWork } from '../../../../api/admin/works';
 import type { Work } from '../types';
 import { validateWork } from '../useValidation';
 

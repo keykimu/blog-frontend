@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue';
-import { getProfile, updateProfile } from '../../../api/profile';
+import { getProfile, updateProfile } from '../../../api/admin/profile';
 import type { Profile } from './types';
 import { useRouter } from 'vue-router';
 import { validateProfile } from './useValidation';

@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import type { WorkCreateRequest } from "./types";
-import { createWorkAPI } from "../../../../api/works";
+import { createWorkAPI } from "../../../../api/admin/works";
 import { validateWork } from "../useValidation";
 
 export const useNewWork = () => {

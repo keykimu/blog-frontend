@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { deleteWork, getWorksAPI } from "../../../api/works";
+import { deleteWork, getWorksAPI } from "../../../api/admin/works";
 import type { Work } from "./types";
 
 export const useWorks = () => {

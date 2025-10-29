@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import type { Hobby, Career, Event, Certificate, ProfileItemsRequest } from './types/index';
-import { getProfileItems, updateProfileItems } from '../../../api/profile';
+import { getProfileItems, updateProfileItems } from '../../../api/admin/profile';
 import { validateProfileItems } from './useProfileItemsValidations';
 
 export const useProfileItems = () => {
