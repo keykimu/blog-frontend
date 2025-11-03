@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="icon-nickname">
         <router-link to="/profile" class="logo">
-          <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
+          <img :src="store.profile?.imageName" alt="プロフィール画像" class="profile-img" />
         </router-link>
 
         <span class="nickname">{{ store.profile?.nickname }}</span>
@@ -15,7 +15,6 @@
 
 <script lang="ts" setup>
 import { usePublicProfileStore } from '../stores/usePublicProfileStore';
-import profileImage from '/akagi.png';
 import { onMounted } from 'vue';
 
 const store = usePublicProfileStore();

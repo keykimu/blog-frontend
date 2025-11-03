@@ -4,6 +4,7 @@ export interface PublicProfileResponse {
   nameEn: string;
   intro: string;
   bio: string;
+  imageName: string;
   mail: string;
   github: string;
 }

@@ -3,7 +3,7 @@
     <h1>プロフィール</h1>
     <!-- Top部分 -->
     <div class="top">
-      <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
+      <img :src="store.profile?.imageName" alt="プロフィール画像" class="profile-img" />
       <h1 class="name">{{ store.profile?.name }}</h1>
       <p class="intro">{{ store.profile?.intro }}</p>
     </div>
@@ -60,7 +60,6 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import profileImage from '/akagi.png';
 import { usePublicProfileStore } from '../stores/usePublicProfileStore';
 import { fetchProfileItems } from '../api/public/profileItems/profileItems';
 import type { PublicProfileItemsResponse } from '../api/public/profileItems/types';
