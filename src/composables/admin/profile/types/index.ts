@@ -5,6 +5,7 @@ export interface Profile {
   nameEn: string;
   intro: string;
   bio: string;
+  imageName:string,
   mail: string;
   github: string;
   createdAt: string;

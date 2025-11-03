@@ -29,6 +29,10 @@ export const validateProfile = (profile: Profile): string | null => {
   err = checkRequired(profile.bio, '自己紹介') || checkLength(profile.bio, 500, '自己紹介');
   if (err) return err;
 
+  // アイコン画像
+  err = checkRequired(profile.imageName, 'アイコン画像') || checkLength(profile.imageName, 255, '自己紹介');
+  if (err) return err;
+
   // メール
   err = checkRequired(profile.mail, 'メール') || checkLength(profile.mail, 255, 'メール');
   if (err) return err;

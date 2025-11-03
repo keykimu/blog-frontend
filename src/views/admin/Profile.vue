@@ -28,6 +28,10 @@
           <small>{{ profile.bio.length }} / {{ BIO_MAX }}</small>
         </div>
         <div class="form-row">
+          <label>アイコン画像<span class="required">*</span></label>
+        <input id="url" v-model="profile.imageName" type="text" placeholder="no_image.png"/>
+        </div>
+        <div class="form-row">
           <label>メール<span class="required">*</span></label>
           <input v-model="profile.mail" type="email" />
         </div>

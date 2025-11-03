@@ -14,6 +14,7 @@ export const useProfile = () => {
     intro: '',
     bio: '',
     mail: '',
+    imageName: '',
     github: '',
     createdAt: '',
     updatedAt: '',
