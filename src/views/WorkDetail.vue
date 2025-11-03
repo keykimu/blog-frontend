@@ -14,7 +14,6 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchPublicWorkById } from '../api/public/work/works';
-import noImage from "@/assets/no_image.png";
 import { usePublicWorksStore } from '../stores/usePublicWorksStore';
 import type { PublicWorkResponse } from '../api/public/work/types';
 
@@ -40,7 +39,7 @@ onMounted(async () => {
 
       work.value = {
         ...response,
-        url: response.url ? BASE_IMAGE_URL + response.url : noImage,
+        url: BASE_IMAGE_URL + response.url,
         createdAt: `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`,
       };
     }
