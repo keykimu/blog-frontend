@@ -15,7 +15,7 @@
       </div>
       <div class="form-row">
         <label for="imageUrl">画像URL</label>
-        <input id="imageUrl" v-model="work.url" />
+        <input id="imageUrl" v-model="work.url" placeholder="no_image.png"/>
         <small></small>
       </div>
       <div class="form-row">
