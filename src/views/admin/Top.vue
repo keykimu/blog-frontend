@@ -2,10 +2,10 @@
   <div class="top">
     <h2>管理画面トップ</h2>
     <div class="workCount">
-      <h3>成果物件数 </h3>
+      <h3>成果物件数</h3>
       {{ works.length }}件
       <div class="errorMessage">
-      {{ errorMessage }}
+        {{ errorMessage }}
       </div>
     </div>
 
@@ -43,27 +43,27 @@ onMounted(async () => {
   await fetchWorks();
   await fetchUsers();
 });
-
 </script>
 
 <style lang="scss" scoped>
 .top {
   padding: 2rem;
 
-  .users{
+  .users {
     margin-top: 2rem;
 
-    .user-table{
+    .user-table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 1rem;
       text-align: left;
-      table-layout: fixed; // 横幅を均等に
+      table-layout: fixed;
 
       th,
       td {
+        padding: 0.5rem;
         border: 1px solid #ccc;
-        padding: 0.75rem 1rem;
-        word-wrap: break-word; // 長い文字列も折り返す
+        text-align: center;
       }
 
       th {
@@ -71,7 +71,7 @@ onMounted(async () => {
       }
     }
   }
-  
+
   @media (max-width: 768px) {
     padding: 0rem;
     padding-top: 3rem;

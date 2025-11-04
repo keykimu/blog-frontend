@@ -16,7 +16,7 @@
 
       <div class="form-row">
         <label for="url">画像URL</label>
-        <input id="url" v-model="work.url" type="text" placeholder="no_image.png"/>
+        <input id="url" v-model="work.url" type="text" placeholder="no_image.png" />
       </div>
 
       <div class="form-row">
@@ -55,7 +55,6 @@ const { work, errorMessage, update } = useEditWork();
 }
 .work-edit {
   padding: 2rem;
-  max-width: 700px;
   margin: 0 auto;
   @media (max-width: 768px) {
     padding: 0rem;
@@ -63,7 +62,7 @@ const { work, errorMessage, update } = useEditWork();
     padding-right: 2rem;
     padding-bottom: 2rem;
   }
-  
+
   h2 {
     margin-bottom: 1.5rem;
   }
@@ -84,7 +83,7 @@ const { work, errorMessage, update } = useEditWork();
 
       input,
       textarea {
-        padding: 0.75rem;
+        padding: 0.5rem;
         font-size: 1rem;
         border: 1px solid #ccc;
         border-radius: 6px;
@@ -103,12 +102,11 @@ const { work, errorMessage, update } = useEditWork();
       justify-content: center;
 
       button {
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.5rem 1rem;
         background-color: #3b82f6;
         color: white;
         border: none;
-        border-radius: 6px;
+        border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.2s;
 
