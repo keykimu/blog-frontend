@@ -32,11 +32,6 @@
         <button type="submit">保存</button>
       </div>
     </form>
-
-    <div class="preview">
-      <label>プレビュー</label>
-      <pre>{{ work }}</pre>
-    </div>
   </div>
 </template>
 
@@ -117,23 +112,6 @@ const { work, errorMessage, update } = useEditWork();
     }
     small {
       margin-left: auto;
-    }
-  }
-
-  .preview {
-    margin-top: 2rem;
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    pre {
-      background-color: #f3f4f6;
-      padding: 1rem;
-      border-radius: 6px;
-      overflow-x: auto;
     }
   }
 
