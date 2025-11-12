@@ -92,7 +92,7 @@ onMounted(async () => {
   .card {
     width: 100%;
     max-width: 220px;
-    background: #dddddd;
+    background-color: #a7a7a78c;
     border-radius: 10px;
     overflow: hidden;
     padding: 10px;
@@ -114,12 +114,10 @@ onMounted(async () => {
     h2 {
       font-size: 1.2rem;
       margin: 10px 0 5px;
-      color: #555;
     }
 
     p {
       font-size: 0.9rem;
-      color: #555;
     }
   }
 

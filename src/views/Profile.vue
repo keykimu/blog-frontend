@@ -92,7 +92,8 @@ onMounted(async ()=>{
     flex-direction: column;
     align-items: center;
     text-align: center;
-
+    padding-top: 20px;
+    
     .profile-img {
       width: 200px;
       height: 160px;
@@ -114,7 +115,8 @@ onMounted(async ()=>{
 
   section {
     margin-top: 40px;
-
+    background-color: #a7a7a78c;
+    border-radius: 15px;
     h2 {
       font-size: 1.5rem;
       margin-bottom: 10px;
@@ -141,6 +143,7 @@ onMounted(async ()=>{
   }
 
   .about {
+    padding: 20px;
     h2 {
       text-align: center;
     }
@@ -165,9 +168,9 @@ onMounted(async ()=>{
   .contents section {
     flex: 1 1 300px; // 最小幅300px、余白があれば伸縮
     max-width: 400px; // 最大幅を設定
-    background: hsla(0, 0%, 100%, 0.089); // 任意：背景色
+    background-color: #a7a7a78c;
+    border-radius: 15px;
     padding: 20px;
-    border-radius: 10px;
   }
 
   .contents h2 {

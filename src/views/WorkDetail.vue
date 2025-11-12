@@ -82,6 +82,11 @@ const formattedDescription = computed(() =>
       object-fit: cover; // 画像が枠に収まるように調整
     }
   }
+  .content{
+    padding:20px;
+    border-radius: 15px;
+    background-color: #a7a7a78c;;
+  }
 }
 
 /* スマホ対応 */
