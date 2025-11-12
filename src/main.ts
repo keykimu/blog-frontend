@@ -5,6 +5,7 @@ import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import './assets/styles/global.scss';
 import { createPinia } from 'pinia';
+import { setupRouterGuards } from './stores/setupRouterGurds';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -13,20 +14,6 @@ app.use(pinia);
 app.use(router);
 app.component('Header', Header);
 app.component('Footer', Footer);
-
-router.beforeEach((to) => {
-  // ページタイトルを更新
-  if (to.meta.title) {
-    document.title = to.meta.title as string;
-  }
-
-  // description を更新
-  const descriptionMeta = document.querySelector('meta[name="description"]');
-  if (descriptionMeta && to.meta.description) {
-    descriptionMeta.setAttribute('content', to.meta.description as string);
-  }
-
-  return true;
-});
+setupRouterGuards(router);
 
 app.mount('#app');

@@ -19,15 +19,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import api from "./../../api/axiosInstance"
 
 const router = useRouter();
 const menuOpen = ref(false);
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 const closeMenu = () => (menuOpen.value = false);
 
-const logout = () => {
-  localStorage.removeItem('jwt');
-  sessionStorage.clear();
+const logout = async () => {
+  try {
+    await api.post('/api/admin/auth/logout');
+  } catch (e) {
+    console.error(e);
+  }
   router.push('/admin');
   closeMenu();
 };
