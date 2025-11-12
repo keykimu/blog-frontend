@@ -131,7 +131,7 @@ const handleSaveAll = async () => {
   }
 
   th {
-    background-color: #f5f5f5;
+    background-color: #2f364bb7;
   }
 
   .name {
@@ -269,6 +269,7 @@ const handleSaveAll = async () => {
     td::before {
       font-weight: bold;
       flex: 0 0 20%;
+      background-color: #2f364bb7;
     }
 
     input,

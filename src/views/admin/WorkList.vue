@@ -92,6 +92,7 @@ onMounted(fetchWorks);
     td::before {
       font-weight: bold;
       flex: 0 0 30%;
+      background-color: #2f364bb7;
     }
   }
 }
@@ -111,7 +112,7 @@ onMounted(fetchWorks);
   }
 
   th {
-    background-color: #f5f5f5;
+    background-color: #2f364bb7;
   }
 
   .name {

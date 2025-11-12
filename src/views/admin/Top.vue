@@ -67,7 +67,7 @@ onMounted(async () => {
       }
 
       th {
-        background-color: #f5f5f5;
+        background-color: #2f364bb7;
       }
     }
   }
