@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '../../api/axiosInstance';
 
@@ -49,6 +49,10 @@ async function login() {
     }
   }
 }
+
+onMounted(() => {
+  document.body.classList.add('dark');
+});
 </script>
 
 <style scoped>
