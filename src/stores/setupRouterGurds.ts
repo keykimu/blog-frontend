@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import api from './../api/axiosInstance';
 import type { Router } from 'vue-router';
 
@@ -19,6 +20,16 @@ export function setupRouterGuards(router: Router) {
         await api.get('/api/admin/auth/check');
         return true; // 認証 OK
       } catch (err) {
+        if (isAxiosError(err)) {
+          if (err.response?.status === 401) {
+              console.warn('Admin access denied, redirecting to login.');
+              return '/admin'; // ログインページへリダイレクト
+          }
+          
+          // 認証以外の Axios エラー
+          console.error('Unexpected Axios error during auth check:', err);
+          return '/admin'; 
+        }
         return '/admin'; // ログインページへリダイレクト
       }
     }
