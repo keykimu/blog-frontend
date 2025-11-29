@@ -29,16 +29,10 @@ const errorMessage = ref('');
 async function login() {
   errorMessage.value = '';
   try {
-    const response = await api.post('/api/admin/auth/login', {
+    await api.post('/api/admin/auth/login', {
       username: username.value,
       password: password.value,
-    },{
-      headers: { 'Content-Type': 'application/json' }
     });
-    // JWT を localStorage に保存
-    localStorage.setItem('jwt', response.data.token);
-
-    // トップページに遷移
     router.push('/admin/top');
   } catch (error: any) {
     // エラーを表示

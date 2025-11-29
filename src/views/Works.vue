@@ -8,9 +8,9 @@
         :to="`/works/${item.id}`"
         class="card"
       >
-        <img :src="item.image" :alt="item.title" />
+        <img :src="item.url" :alt="item.title" />
         <h2>{{ item.title }}</h2>
-        <p>{{ item.date }}</p>
+        <p>{{ item.createdAt }}</p>
       </router-link>
     </div>
 
@@ -24,24 +24,51 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
-import { works } from '../data/works';
+import { ref, computed, onMounted } from 'vue';
+import { fetchPublicWorks } from '../api/public/work/works';
+import type { PublicWorkResponse } from '../api/public/work/types';
 
 const page = ref(1);
 const perPage = 8;
-const totalPages = Math.ceil(works.length / perPage);
+
+const works = ref<PublicWorkResponse[]>([]);
+const error = ref<string | null>(null);
+const isLoading = ref(true);
+
+const totalPages = computed(()=>Math.ceil(works.value.length / perPage));
 
 const paginatedWorks = computed(() => {
   const start = (page.value - 1) * perPage;
-  return works.slice(start, start + perPage);
+  return works.value.slice(start, start + perPage);
 });
 
 const nextPage = () => {
-  if (page.value < totalPages) page.value++;
+  if (page.value < totalPages.value) page.value++;
 };
 const prevPage = () => {
   if (page.value > 1) page.value--;
 };
+
+const BASE_IMAGE_URL = import.meta.env.VITE_API_BASE_URL + "/uploads/";
+onMounted(async () => {
+  try {
+    works.value = await fetchPublicWorks();
+
+    works.value = works.value.map(work => ({
+      ...work,
+      url: BASE_IMAGE_URL + work.url,
+      createdAt: (()=>{
+        const d = new Date(work.createdAt);
+        return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`;
+      })()
+    }));
+  } catch (err) {
+    error.value = "成果物の取得に失敗しました。";
+    console.error(err);
+  } finally {
+    isLoading.value = false;
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -65,7 +92,7 @@ const prevPage = () => {
   .card {
     width: 100%;
     max-width: 220px;
-    background: #dddddd;
+    background-color: #a7a7a78c;
     border-radius: 10px;
     overflow: hidden;
     padding: 10px;
@@ -87,12 +114,10 @@ const prevPage = () => {
     h2 {
       font-size: 1.2rem;
       margin: 10px 0 5px;
-      color: #555;
     }
 
     p {
       font-size: 0.9rem;
-      color: #555;
     }
   }
 
@@ -120,7 +145,7 @@ const prevPage = () => {
 /* スマホ対応 */
 @media (max-width: 768px) {
   .works .grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   .card {

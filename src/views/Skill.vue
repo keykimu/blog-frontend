@@ -14,10 +14,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="lang in languages" :key="lang.name">
+          <tr v-for="lang in skills?.languageResponse" :key="lang.id">
             <td>{{ lang.name }}</td>
             <td>{{ lang.level }}</td>
-            <td>{{ lang.year }}</td>
+            <td>{{ lang.experience }}</td>
           </tr>
         </tbody>
       </table>
@@ -34,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="fw in frameworks" :key="fw.name">
+          <tr v-for="fw in skills?.frameworkResponse" :key="fw.id">
             <td>{{ fw.name }}</td>
             <td>{{ fw.level }}</td>
           </tr>
@@ -53,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="tool in others" :key="tool.name">
+          <tr v-for="tool in skills?.otherSkillResponse" :key="tool.id">
             <td>{{ tool.name }}</td>
             <td>{{ tool.level }}</td>
           </tr>
@@ -64,33 +64,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import type { PublicSkillsResponse } from '../api/public/skills/types';
+import { fetchPublicSkills } from '../api/public/skills/skills';
 
-// 言語
-const languages = ref([
-  { name: 'Java', level: '実務経験あり(Java Silver取得できる程度)', year: '実務4年' },
-  { name: 'JavaScript', level: '実務経験あり', year: '実務2年' },
-  { name: 'TypeScript', level: '型を意識して書ける', year: '実務1年' },
-  { name: 'Python', level: '基本構文は書ける', year: '実務1年' },
-  { name: 'C#', level: '簡単なデスクトップアプリを作成した', year: '趣味' },
-  { name: 'VB', level: '簡単なデスクトップアプリを作成した', year: '趣味' },
-  { name: 'C', level: 'ポインタで挫折', year: '趣味' },
-  { name: 'Go', level: 'Hello Worldした程度', year: '趣味' },
-  { name: 'Rust', level: 'Hello Worldした程度', year: '趣味' },
-]);
+const skills = ref<PublicSkillsResponse | null>(null);
+const loading = ref(false);
 
-// フレームワーク
-const frameworks = ref([
-  { name: 'Spring Boot', level: 'API,Spring MVCでの実務経験あり' },
-  { name: 'Vue.js', level: 'コンポーネントを意識して開発できる' },
-]);
-
-// その他
-const others = ref([
-  { name: 'PostgreSQL', level: '実務経験あり' },
-  { name: 'Docker', level: '実務経験あり' },
-  { name: 'AWS (EC2)', level: '社内用サイトをデプロイした' },
-]);
+onMounted(async () => {
+  loading.value = true;
+  try {
+    skills.value = await fetchPublicSkills();
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

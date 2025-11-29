@@ -59,14 +59,5 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, __from, next) => {
-  const jwt = localStorage.getItem('jwt');
-
-  if (to.path.startsWith('/admin') && to.path !== '/admin' && !jwt) {
-    next('/admin');
-  } else {
-    next();
-  }
-});
 
 export default router;

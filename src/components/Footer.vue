@@ -1,8 +1,10 @@
 <template>
-  <footer class="footer">&copy; 2025 Yuki Kimura. All rights reserved</footer>
+  <footer class="footer">&copy; {{ year }} Yuki Kimura. All rights reserved</footer>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const year = new Date().getFullYear();
+</script>
 
 <style lang="scss" scoped>
 .footer {
