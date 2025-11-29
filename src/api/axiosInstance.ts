@@ -6,4 +6,15 @@ const instance = axios.create({
   withCredentials:true
 });
 
+// ----------------------------------------------------
+// 💡 追記するコード: 既存のインターセプターを上書きして修正する
+// ----------------------------------------------------
+instance.interceptors.response.use(
+  (response) => response, // 成功時はそのまま返す
+  (error) => {
+    
+    return Promise.reject(error);
+  },
+);
+
 export default instance;
