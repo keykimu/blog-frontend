@@ -3,22 +3,25 @@
     <div class="profile">
       <div class="icon-nickname">
         <router-link to="/profile" class="logo">
-          <img :src="profileImage" alt="プロフィール画像" class="profile-img" />
+          <img :src="store.profile?.imageName" alt="プロフィール画像" class="profile-img" />
         </router-link>
 
-        <span class="nickname">{{ nickname }}</span>
+        <span class="nickname">{{ store.profile?.nickname }}</span>
       </div>
-      <span class="realname">{{ realname }}</span>
+      <span class="realname">{{ store.profile?.name }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import profileImage from '/akagi.png';
-import { ref } from 'vue';
+import { usePublicProfileStore } from '../stores/usePublicProfileStore';
+import { onMounted } from 'vue';
 
-const nickname = ref('kimu');
-const realname = ref('Yuki Kimura');
+const store = usePublicProfileStore();
+
+onMounted(async ()=>{
+  await store.loadProfile();
+});
 </script>
 
 <style lang="scss" scoped>

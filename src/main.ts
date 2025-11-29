@@ -4,20 +4,16 @@ import router from './router';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import './assets/styles/global.scss';
+import { createPinia } from 'pinia';
+import { setupRouterGuards } from './stores/setupRouterGurds';
 
-router.beforeEach((to) => {
-  // ページタイトルを更新
-  if (to.meta.title) {
-    document.title = to.meta.title as string;
-  }
+const app = createApp(App);
+const pinia = createPinia();
 
-  // description を更新
-  const descriptionMeta = document.querySelector('meta[name="description"]');
-  if (descriptionMeta && to.meta.description) {
-    descriptionMeta.setAttribute('content', to.meta.description as string);
-  }
+app.use(pinia);
+app.use(router);
+app.component('Header', Header);
+app.component('Footer', Footer);
+setupRouterGuards(router);
 
-  return true;
-});
-
-createApp(App).use(router).component('Header', Header).component('Footer', Footer).mount('#app');
+app.mount('#app');
