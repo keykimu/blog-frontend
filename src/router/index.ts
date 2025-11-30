@@ -21,9 +21,9 @@ import AdminLayout from '../layouts/AdminLayout.vue';
 const routes = [
   {
     path: '/',
-    component: () => PublicLayout,
+    component: PublicLayout,
     children: [
-      { path: '', name: 'Home', component: () => Home },
+      { path: '', name: 'Home', component: Home },
       { path: 'profile', name: 'Profile', component: Profile },
       { path: 'skill', name: 'Skill', component: Skill },
       { path: 'works', name: 'Works', component: Works },

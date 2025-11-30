@@ -1,6 +1,12 @@
-import { isAxiosError } from 'axios';
+// import { isAxiosError } from 'axios';
+import type { AxiosError } from 'axios';
 import api from './../api/axiosInstance';
 import type { Router } from 'vue-router';
+
+function isAxiosError(error: any): error is AxiosError {
+    // Axiosエラーであれば response プロパティを持つ、または isAxiosError フラグを持つ
+    return (error as AxiosError).isAxiosError === true || (error as AxiosError).response !== undefined;
+}
 
 export function setupRouterGuards(router: Router) {
   router.beforeEach(async (to) => {
