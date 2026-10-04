@@ -18,6 +18,7 @@ export const useEditWork = () => {
     updatedAt: ''
   });
   const errorMessage = ref<string | null>(null);
+  const imageFile = ref<File | null>(null);
 
   // 成果物を取得
   const fetchWork = async () => {
@@ -32,13 +33,13 @@ export const useEditWork = () => {
   // 成果物を更新
   const update = async () => {
     if (!work.value) return;
-    const error = validateWork(work.value);
+    const error = validateWork({ ...work.value, file: imageFile.value });
     if (error) {
       errorMessage.value = error;
       return;
     }
     try {
-      const response = await updateWork(work.value);
+      const response = await updateWork(work.value, imageFile.value);
       if (response) {
         alert(`成果物ページ${work.value.title}を更新しました`);
         router.push('/admin/works');
@@ -55,6 +56,7 @@ export const useEditWork = () => {
   return {
     work,
     errorMessage,
+    imageFile,
     fetchWork,
     update,
   };

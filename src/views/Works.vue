@@ -27,6 +27,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { fetchPublicWorks } from '../api/public/work/works';
 import type { PublicWorkResponse } from '../api/public/work/types';
+import { resolveStorageUrl } from '../utils/storageUrl';
 
 const page = ref(1);
 const perPage = 8;
@@ -49,14 +50,13 @@ const prevPage = () => {
   if (page.value > 1) page.value--;
 };
 
-const BASE_IMAGE_URL = import.meta.env.VITE_API_BASE_URL + "/uploads/";
 onMounted(async () => {
   try {
     works.value = await fetchPublicWorks();
 
     works.value = works.value.map(work => ({
       ...work,
-      url: BASE_IMAGE_URL + work.url,
+      url: resolveStorageUrl(work.url),
       createdAt: (()=>{
         const d = new Date(work.createdAt);
         return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`;
