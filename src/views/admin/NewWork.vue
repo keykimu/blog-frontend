@@ -16,8 +16,10 @@
       </div>
 
       <div class="form-row">
-        <label for="imageUrl">画像URL</label>
-        <input id="imageUrl" v-model="work.url" placeholder="no_image.png" />
+        <label for="imageFile">成果物画像</label>
+        <input id="imageFile" type="file" accept="image/*" @change="selectImage" />
+        <small>1MB以下の画像ファイル</small>
+        <img v-if="previewUrl" :src="previewUrl" alt="選択した画像のプレビュー" class="image-preview" />
       </div>
 
       <div class="form-row">
@@ -47,10 +49,18 @@ const DESCRIPTION_MAX = 1000;
 const work = ref<WorkCreateRequest>({
   title: '',
   description: '',
-  url: '',
   techStack: '',
+  file: null,
 });
 const { errorMessage, createWork } = useNewWork();
+const previewUrl = ref('');
+
+const selectImage = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0] ?? null;
+  work.value.file = file;
+  if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
+  previewUrl.value = file ? URL.createObjectURL(file) : '';
+};
 
 const create = async () => {
   await createWork(work.value);
@@ -101,6 +111,13 @@ const create = async () => {
 
       small {
         margin-left: auto;
+      }
+
+      .image-preview {
+        max-width: 320px;
+        max-height: 220px;
+        object-fit: contain;
+        border-radius: 8px;
       }
     }
 

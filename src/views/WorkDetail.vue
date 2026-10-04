@@ -16,6 +16,7 @@ import { useRoute } from 'vue-router';
 import { fetchPublicWorkById } from '../api/public/work/works';
 import { usePublicWorksStore } from '../stores/usePublicWorksStore';
 import type { PublicWorkResponse } from '../api/public/work/types';
+import { resolveStorageUrl } from '../utils/storageUrl';
 
 const store = usePublicWorksStore();
 const route = useRoute();
@@ -23,8 +24,6 @@ const route = useRoute();
 const work = ref<PublicWorkResponse | null>(null);
 const isLoading = ref(true);
 const error = ref<string | null>(null);
-
-const BASE_IMAGE_URL = import.meta.env.VITE_API_BASE_URL + "/uploads/";
 
 onMounted(async () => {
   try {
@@ -39,7 +38,7 @@ onMounted(async () => {
 
       work.value = {
         ...response,
-        url: BASE_IMAGE_URL + response.url,
+        url: resolveStorageUrl(response.url),
         createdAt: `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}時${d.getMinutes()}分`,
       };
     }

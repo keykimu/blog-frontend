@@ -5,8 +5,9 @@ export const validateWork = (work: WorkCreateRequest) => {
   if (!work.description?.trim()) return '説明は必須です';
   if (work.title.length > 100) return 'タイトルは100文字以内です';
   if (work.description.length > 1000) return '説明は1000文字以内です';
-  if (work.url.length > 255 ) return "画像urlは255文字以内です";
   if (work.techStack.length > 255 ) return "タグは255文字以内です";
+  if (work.file && !work.file.type.startsWith('image/')) return '画像ファイルのみ指定できます';
+  if (work.file && work.file.size > 1024 * 1024) return '画像は1MB以下にしてください';
   if (work.techStack) {
     const stack = work.techStack.trim();
   

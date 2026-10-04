@@ -15,8 +15,10 @@
       </div>
 
       <div class="form-row">
-        <label for="url">画像URL</label>
-        <input id="url" v-model="work.url" type="text" placeholder="no_image.png" />
+        <label for="imageFile">成果物画像</label>
+        <input id="imageFile" type="file" accept="image/*" @change="selectImage" />
+        <small>変更しない場合は現在の画像が保持されます（1MB以下）</small>
+        <img v-if="previewUrl" :src="previewUrl" alt="成果物画像のプレビュー" class="image-preview" />
       </div>
 
       <div class="form-row">
@@ -36,12 +38,23 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue';
 import { useEditWork } from '../../composables/admin/works/edit/useEditWork';
+import { resolveStorageUrl } from '../../utils/storageUrl';
 
 const TITLE_MAX = 100;
 const DESCRIPTION_MAX = 1000;
 
-const { work, errorMessage, update } = useEditWork();
+const { work, imageFile, errorMessage, update } = useEditWork();
+const selectedPreviewUrl = ref('');
+const previewUrl = computed(() => selectedPreviewUrl.value || resolveStorageUrl(work.value.url));
+
+const selectImage = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0] ?? null;
+  imageFile.value = file;
+  if (selectedPreviewUrl.value) URL.revokeObjectURL(selectedPreviewUrl.value);
+  selectedPreviewUrl.value = file ? URL.createObjectURL(file) : '';
+};
 </script>
 
 <style lang="scss" scoped>
@@ -112,6 +125,12 @@ const { work, errorMessage, update } = useEditWork();
     }
     small {
       margin-left: auto;
+    }
+    .image-preview {
+      max-width: 320px;
+      max-height: 220px;
+      object-fit: contain;
+      border-radius: 8px;
     }
   }
 
